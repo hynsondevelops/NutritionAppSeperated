@@ -1,0 +1,2 @@
+class FoodPortion < ApplicationRecord
+end

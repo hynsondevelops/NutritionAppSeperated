@@ -1,0 +1,2 @@
+class DailyDiet < ApplicationRecord
+end

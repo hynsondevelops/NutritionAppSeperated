@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2018-03-21 20:53:03
+  admin_user_id: 1
+
+two:
+  date: 2018-03-21 20:53:03
+  admin_user_id: 1
