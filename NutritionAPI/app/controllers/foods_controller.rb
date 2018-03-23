@@ -15,7 +15,7 @@ class FoodsController < ApiController
 
   # POST /foods
   def create
-    @food = Food.new(food_params)
+    @food = Food.new(name: params[:name], data: params[:data])
 
     if @food.save
       render json: @food, status: :created, location: @food
@@ -26,7 +26,7 @@ class FoodsController < ApiController
 
   # PATCH/PUT /foods/1
   def update
-    if @food.update(food_params)
+    if @food.update(name: params[:name], data: params[:data])
       render json: @food
     else
       render json: @food.errors, status: :unprocessable_entity
@@ -44,8 +44,5 @@ class FoodsController < ApiController
       @food = Food.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
-    def food_params
-      params.require(:food).permit(:name, :data)
-    end
+    
 end
