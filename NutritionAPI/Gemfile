@@ -44,7 +44,10 @@ group :production do
 end
 
 group :test do
+	#for mock data
 	gem 'factory_bot'
+	#for wiping test database
+	gem 'database_cleaner'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
