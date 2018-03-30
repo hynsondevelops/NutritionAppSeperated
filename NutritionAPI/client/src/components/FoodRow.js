@@ -26,6 +26,10 @@ export default class FoodRow extends React.Component {
     }
   }
 
+  componentDidMount() {
+    
+  }
+
   handleAddFood = () => {
 
     //AJAX call to create a food database entry in user's daily foods
