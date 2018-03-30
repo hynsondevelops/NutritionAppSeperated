@@ -1,8 +1,7 @@
 FactoryBot.define do
 	factory :food_portion do
 		quantity 1
-		food
-		daily_diet
-		
+		association :food
+		association :daily_diet
 	end
 end

@@ -10,7 +10,12 @@ class DailyDietsController < ApplicationController
 
   # GET /daily_diets/1
   def show
-    render json: @daily_diet
+    print(current_admin_user)
+    if (current_admin_user == @daily_diet.admin_user)
+      render json: @daily_diet
+    else 
+      render json: "Log in to view your daily diet", status: 403
+    end
   end
 
   # POST /daily_diets

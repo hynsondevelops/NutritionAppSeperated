@@ -29,8 +29,17 @@ export default class FoodRow extends React.Component {
   handleAddFood = () => {
 
     //AJAX call to create a food database entry in user's daily foods
-    axios.post("http://localhost:3000/api/foods/", {name: this.state.searchedFood.name, data: this.state.searchedFood})
-
+    //axios.post("http://localhost:3000/api/daily_diets/", {name: this.state.searchedFood.name, data: this.state.searchedFood})
+    axios.post("http://localhost:3000/api/daily_diets/", {date: "March 29, 2018", admin_user_id: 1})
+    axios.get("http://localhost:3000/api/daily_diets/2")
+    .then(function (response) {
+        console.log("Response Below")
+        console.log(response);
+    })
+    .catch(function (error) {
+      console.log("Error Below")
+      console.log(error);
+    });
     /*$.ajax({
       url: '/food_portions',
       type: 'POST',
