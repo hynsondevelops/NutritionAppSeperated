@@ -1,16 +1,4 @@
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-
-Enzyme.configure({ adapter: new Adapter() });
-
-import React from 'react';
-import { expect, assert } from 'chai';
-import { mount } from 'enzyme';
-import { spy } from 'sinon';
-import FoodRow from '../src/components/FoodRow.js';
-import {sampleObject} from './data/FoodPortion.js';
-
-/*const sampleObject = [
+export const sampleObject = [
 	  {
 	    "ndbno": "23115",
 	    "name": "Beef, chuck eye roast, boneless, America's Beef Roast, separable lean and fat, trimmed to 0\" fat, select, cooked, roasted",
@@ -3029,21 +3017,4 @@ import {sampleObject} from './data/FoodPortion.js';
 	    "food_portion_id": 14
 	  },
 	  "1.0"
-	]*/
-
-describe('<FoodRow />', function() {
-  it('should have a table row', function () {
-      const wrapper = mount(<FoodRow searchedFood={sampleObject}/>);
-      assert.equal(0, 0)
-      //expect(wrapper.find('tr')).to.have.length(1);
-    });
-  it('should have four columns', function() {
-  	const wrapper = mount(<FoodRow searchedFood={sampleObject}/>);
-  	expect(wrapper.find('th')).to.have.length(1);
-  	expect(wrapper.find('td')).to.have.length(3);
-  });
-});
-
-
-
-
+	]
