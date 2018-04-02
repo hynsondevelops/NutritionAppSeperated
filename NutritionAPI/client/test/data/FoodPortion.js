@@ -3018,3 +3018,119 @@ export const sampleObject = [
 	  },
 	  "1.0"
 	]
+
+export const sampleObjectSearch = {
+  "ndbno": "45290615",
+  "name": "A BUBBLY PROBIOTIC SUPER-TEA, UPC: 851861006201",
+  "ds": "LI",
+  "manu": "Health-Ade LLC.",
+  "ru": "ml",
+  "ing": {
+    "desc": "FILTERED WATER, KOMBUCHA CULTURE (YEAST AND BACTERIA CULTURES), ORGANIC BLACK TEA, ORGANIC GREEN TEA, ORGANIC EVAPORATED CANE JUICE (SUGAR), ORGANIC CACAO POWDER, ORGANIC VANILLA POWDER, ORGANIC REISHI MUSHROOM POWDER.",
+    "upd": "07/14/2017"
+  },
+  "nutrients": [
+    {
+      "nutrient_id": "208",
+      "name": "Energy",
+      "derivation": "LCCS",
+      "group": "Proximates",
+      "unit": "kcal",
+      "value": "17",
+      "measures": [
+        {
+          "label": "OZA",
+          "eqv": 237,
+          "eunit": "ml",
+          "qty": 8,
+          "value": "40"
+        }
+      ]
+    },
+    {
+      "nutrient_id": "203",
+      "name": "Protein",
+      "derivation": "LCCS",
+      "group": "Proximates",
+      "unit": "g",
+      "value": "0.00",
+      "measures": [
+        {
+          "label": "OZA",
+          "eqv": 237,
+          "eunit": "ml",
+          "qty": 8,
+          "value": "0.00"
+        }
+      ]
+    },
+    {
+      "nutrient_id": "204",
+      "name": "Total lipid (fat)",
+      "derivation": "LCCS",
+      "group": "Proximates",
+      "unit": "g",
+      "value": "0.00",
+      "measures": [
+        {
+          "label": "OZA",
+          "eqv": 237,
+          "eunit": "ml",
+          "qty": 8,
+          "value": "0.00"
+        }
+      ]
+    },
+    {
+      "nutrient_id": "205",
+      "name": "Carbohydrate, by difference",
+      "derivation": "LCCS",
+      "group": "Proximates",
+      "unit": "g",
+      "value": "3.80",
+      "measures": [
+        {
+          "label": "OZA",
+          "eqv": 237,
+          "eunit": "ml",
+          "qty": 8,
+          "value": "9.01"
+        }
+      ]
+    },
+    {
+      "nutrient_id": "269",
+      "name": "Sugars, total",
+      "derivation": "LCCS",
+      "group": "Proximates",
+      "unit": "g",
+      "value": "1.27",
+      "measures": [
+        {
+          "label": "OZA",
+          "eqv": 237,
+          "eunit": "ml",
+          "qty": 8,
+          "value": "3.01"
+        }
+      ]
+    },
+    {
+      "nutrient_id": "307",
+      "name": "Sodium, Na",
+      "derivation": "LCCS",
+      "group": "Minerals",
+      "unit": "mg",
+      "value": "4",
+      "measures": [
+        {
+          "label": "OZA",
+          "eqv": 237,
+          "eunit": "ml",
+          "qty": 8,
+          "value": "9"
+        }
+      ]
+    }
+  ]
+}

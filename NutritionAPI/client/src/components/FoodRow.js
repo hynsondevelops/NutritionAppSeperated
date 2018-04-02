@@ -34,8 +34,11 @@ export default class FoodRow extends React.Component {
 
     //AJAX call to create a food database entry in user's daily foods
     //axios.post("http://localhost:3000/api/daily_diets/", {name: this.state.searchedFood.name, data: this.state.searchedFood})
-    axios.post("http://localhost:3000/api/daily_diets/", {date: "March 29, 2018", admin_user_id: 1})
-    axios.get("http://localhost:3000/api/daily_diets/2")
+    axios.post("http://localhost:3000/api/daily_diets/", {date: "March 29, 2018", admin_user_id: 1}).catch(function (error) {
+      console.log("Error Below")
+      console.log(error);
+    })
+    /*axios.get("http://localhost:3000/api/daily_diets/2")
     .then(function (response) {
         console.log("Response Below")
         console.log(response);
@@ -43,7 +46,7 @@ export default class FoodRow extends React.Component {
     .catch(function (error) {
       console.log("Error Below")
       console.log(error);
-    });
+    });*/
     /*$.ajax({
       url: '/food_portions',
       type: 'POST',
@@ -90,7 +93,7 @@ export default class FoodRow extends React.Component {
     let AddFoodButtonTemp = ""
     //search result
     if (this.props.searchOrDaily){
-      AddFoodButtonTemp = <input type="submit" value="Add" onClick={this.handleAddFood} />
+      AddFoodButtonTemp = <input id="add_food_button" type="submit" value="Add" onClick={this.handleAddFood} />
     }
     while (findingEnergy)
     {
@@ -123,7 +126,7 @@ export default class FoodRow extends React.Component {
 
     <tr>  
             <th className="name_cell"scope="row">{this.state.searchedFood["name"]}</th>
-            <td className="quantity_cell"><input type="text" value={this.state.quantity} onChange={this.quantityFieldUpdate} onKeyDown={this.quantityUpdate} /></td>
+            <td className="quantity_cell"><input id="quantity_input" type="text" value={this.state.quantity} onChange={this.quantityFieldUpdate} onKeyDown={this.quantityUpdate} /></td>
             <td className="serving_size_cell"><Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" /></td>
             <td className="calories_cell">{calories}</td>
             {AddFoodButton}
@@ -133,3 +136,4 @@ export default class FoodRow extends React.Component {
 }
 
 
+1
