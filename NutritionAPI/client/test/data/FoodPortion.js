@@ -3017,7 +3017,7 @@ export const sampleObject = [
 	    "food_portion_id": 14
 	  },
 	  "1.0"
-	]
+]
 
 export const sampleObjectSearch = {
   "ndbno": "45290615",
@@ -3133,4 +3133,194 @@ export const sampleObjectSearch = {
       ]
     }
   ]
+}
+
+export const sampleFoodSearchResults = {
+  "list": {
+    "q": "A",
+    "sr": "28",
+    "ds": "any",
+    "start": 0,
+    "end": 25,
+    "total": 1565,
+    "group": "",
+    "sort": "n",
+    "item": [
+      {
+        "offset": 0,
+        "group": "Branded Food Products Database",
+        "name": "A.A. BORSARI, PEPPER SEASONING PEPPERCORN, UPC: 815893000163",
+        "ndbno": "45059050",
+        "ds": "BL"
+      },
+      {
+        "offset": 1,
+        "group": "Branded Food Products Database",
+        "name": "A.A. BORSARI, SAVORY SEASONED SALT, UPC: 815893000156",
+        "ndbno": "45058983",
+        "ds": "BL"
+      },
+      {
+        "offset": 2,
+        "group": "Branded Food Products Database",
+        "name": "A&B AMERICAN STYLE, MORE HEAT SMALL BATCH PEPPER SAUCE, UPC: 851063005040",
+        "ndbno": "45169417",
+        "ds": "BL"
+      },
+      {
+        "offset": 3,
+        "group": "Branded Food Products Database",
+        "name": "A&B AMERICAN STYLE, ORGANIC PEPPER SAUCE, UPC: 851063005118",
+        "ndbno": "45169419",
+        "ds": "BL"
+      },
+      {
+        "offset": 4,
+        "group": "Branded Food Products Database",
+        "name": "A&B AMERICAN STYLE, PEPPER SAUCE, GARLIC, UPC: 851063005064",
+        "ndbno": "45253484",
+        "ds": "BL"
+      },
+      {
+        "offset": 5,
+        "group": "Branded Food Products Database",
+        "name": "A&B AMERICAN STYLE, SMALL BATCH PEPPER SAUCE, ORIGINAL, UPC: 851063005019",
+        "ndbno": "45169416",
+        "ds": "BL"
+      },
+      {
+        "offset": 6,
+        "group": "Branded Food Products Database",
+        "name": "A. BAUER'S, PREPARED MUSTARD, UPC: 723738002022",
+        "ndbno": "45094214",
+        "ds": "BL"
+      },
+      {
+        "offset": 7,
+        "group": "Branded Food Products Database",
+        "name": "A.1., BBQ- SAUCE, UPC: 054400001785",
+        "ndbno": "45140555",
+        "ds": "BL"
+      },
+      {
+        "offset": 8,
+        "group": "Branded Food Products Database",
+        "name": "A BLEND OF BROCCOLI, CLOVER SPROUTS, UPC: 851042004255",
+        "ndbno": "45331973",
+        "ds": "BL"
+      },
+      {
+        "offset": 9,
+        "group": "Branded Food Products Database",
+        "name": "A BLEND OF COLBY & MONTEREY JACK CHEESES, UPC: 842798100780",
+        "ndbno": "45339351",
+        "ds": "BL"
+      },
+      {
+        "offset": 10,
+        "group": "Branded Food Products Database",
+        "name": "A BLEND OF CORN & CANOLA OILS, UPC: 761720059708",
+        "ndbno": "45028487",
+        "ds": "BL"
+      },
+      {
+        "offset": 11,
+        "group": "Branded Food Products Database",
+        "name": "A BLEND OF CORN & CANOLA OILS, UPC: 761720059302",
+        "ndbno": "45028495",
+        "ds": "BL"
+      },
+      {
+        "offset": 12,
+        "group": "Branded Food Products Database",
+        "name": "A BLEND OF CORN & CANOLA OILS, UPC: 761720987520",
+        "ndbno": "45059615",
+        "ds": "BL"
+      },
+      {
+        "offset": 13,
+        "group": "Branded Food Products Database",
+        "name": "A BLEND OF DICED PORTABELLA, VEGETABLES & HERBS, UPC: 070475690518",
+        "ndbno": "45358202",
+        "ds": "BL"
+      },
+      {
+        "offset": 14,
+        "group": "Branded Food Products Database",
+        "name": "A BLEND OF DICED PORTABELLA, VEGETABLES & HERBS, UPC: 070475690525",
+        "ndbno": "45358236",
+        "ds": "BL"
+      },
+      {
+        "offset": 15,
+        "group": "Branded Food Products Database",
+        "name": "A BLEND OF FRUIT JUICE & REAL TEA, UPC: 889497002014",
+        "ndbno": "45324272",
+        "ds": "BL"
+      },
+      {
+        "offset": 16,
+        "group": "Branded Food Products Database",
+        "name": "A BLEND OF INDIAN CORN, CANDY CORN & CANDY PUMPKINS, UPC: 688267129407",
+        "ndbno": "45277009",
+        "ds": "BL"
+      },
+      {
+        "offset": 17,
+        "group": "Branded Food Products Database",
+        "name": "A BLEND OF ROASTED PEANUTS, RAISINS, ALMONDS & CASHEWS TRAIL MIX, UPC: 708820953215",
+        "ndbno": "45039886",
+        "ds": "BL"
+      },
+      {
+        "offset": 18,
+        "group": "Branded Food Products Database",
+        "name": "A BLEND OF VEGETABLE & CANOLA OILS, UPC: 761720987513",
+        "ndbno": "45085089",
+        "ds": "BL"
+      },
+      {
+        "offset": 19,
+        "group": "Branded Food Products Database",
+        "name": "A BLEND OF VEGETABLE & CANOLA OILS, UPC: 761720063453",
+        "ndbno": "45028485",
+        "ds": "BL"
+      },
+      {
+        "offset": 20,
+        "group": "Branded Food Products Database",
+        "name": "A BLEND OF VEGETABLE & CANOLA OILS, UPC: 761720059036",
+        "ndbno": "45017054",
+        "ds": "BL"
+      },
+      {
+        "offset": 21,
+        "group": "Branded Food Products Database",
+        "name": "A BUBBLY PROBIOTIC SUPER-TEA, UPC: 851861006041",
+        "ndbno": "45239867",
+        "ds": "BL"
+      },
+      {
+        "offset": 22,
+        "group": "Branded Food Products Database",
+        "name": "A BUBBLY PROBIOTIC SUPER-TEA, UPC: 851861006201",
+        "ndbno": "45290615",
+        "ds": "BL"
+      },
+      {
+        "offset": 23,
+        "group": "Branded Food Products Database",
+        "name": "A BUBBLY PROBIOTIC TEA BEET, UPC: 851861006157",
+        "ndbno": "45285029",
+        "ds": "BL"
+      },
+      {
+        "offset": 24,
+        "group": "Branded Food Products Database",
+        "name": "A BUBBLY PROBIOTIC TEA KOMBUCHA, UPC: 852659948833",
+        "ndbno": "45219127",
+        "ds": "BL"
+      }
+    ]
+  }
 }

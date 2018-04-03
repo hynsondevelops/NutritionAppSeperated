@@ -50,12 +50,12 @@ describe('<FoodRow />', function() {
   it('should update the calories when quantity is changed', function() {
   	const wrapper = mount(<FoodRow searchedFood={sampleObject} searchOrDaily={false}/>);
   	const quantityInput = wrapper.find('#quantity_input')
-  	console.log(quantityInput)
   	quantityInput.instance().value = "2"
   	quantityInput.simulate('change')
   	const tableHeaderText = wrapper.find('.calories_cell').text()
   	expect(tableHeaderText).to.equal('458');
   })
+
 
 });
 
