@@ -12,9 +12,9 @@ class DailyDietsController < ApplicationController
   def show
     print(current_admin_user)
     if (current_admin_user == @daily_diet.admin_user)
-      render json: @daily_diet
+      render json: @daily_diet.to_json(:include => [:food_portions])
     else 
-      render json: "Log in to view your daily diet", status: 403
+      render json: {error: "Log in to view your daily diet"}, status: 403
     end
   end
 
@@ -22,10 +22,10 @@ class DailyDietsController < ApplicationController
   def create
     @daily_diet = DailyDiet.new(daily_diet_params)
 
-    if @daily_diet.save
+    if (@daily_diet.save && current_admin_user == @daily_diet.admin_user)
       render json: @daily_diet, status: :created, location: @daily_diet
     else
-      render json: @daily_diet.errors, status: :unprocessable_entity
+      render json: {error: "Log in to create your daily diet"}, status: 403
     end
   end
 

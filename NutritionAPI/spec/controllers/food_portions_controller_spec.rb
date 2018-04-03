@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe FoodPortionsController, type: :controller do
-	before(:all) do
+	before(:each) do
 		@food_portion = create(:food_portion)
 		@food_portion_params = {id: @food_portion.id}
 	end
+
+	
 
 	describe "Method: food_portions#show, URL: /api/food_portions/:id" do
 		#200 status code response

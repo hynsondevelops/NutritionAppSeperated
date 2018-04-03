@@ -1,24 +1,29 @@
-# README
+# NutritionTracker
+A Ruby on Rails application to track food and nutritional goals similiar to [Cronometer](https://cronometer.com/).
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Demo
+Coming Soon
 
-Things you may want to cover:
+## Features
+**Food**
 
-* Ruby version
+Utilizes USDA database API to allow access to data on ~230,000 foods. 
 
-* System dependencies
+Macro-nutrient (carbohydrates, protein, and fat) and micro-nutrient (minerals, vitamins, etc) data available. 
 
-* Configuration
+**Food Tracking**
 
-* Database creation
+Allows for selecting quantities of any combination of foods within the USDA database to track daily calorie and nutrient goals. 
 
-* Database initialization
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+ 
 
-* Deployment instructions
+## Built With
 
-* ...
+* [Ruby On Rails](http://rubyonrails.org/) - The web framework used
+* [Bootstrap](https://getbootstrap.com/) - Front end design
+
+## Authors
+
+* **Adam Hynson** - *Developer* - [Github](https://github.com/hynsondevelops) - [Portfolio](https://hynson-tech-blog.herokuapp.com/portfolio) - [Blog](https://hynson-tech-blog.herokuapp.com/posts)
