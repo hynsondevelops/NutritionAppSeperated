@@ -10,7 +10,6 @@ import { spy } from 'sinon';
 import FoodRow from '../src/components/FoodRow.js';
 import {sampleDailyFoodPortion, sampleDailyFoodPortionSearch} from './data/FoodPortion.js';
 
-
 describe('<FoodRow />', function() {
   it('should have a table row', function () {
       const wrapper = mount(<FoodRow searchedFood={sampleDailyFoodPortion} searchOrDaily={false}/>);
@@ -27,33 +26,33 @@ describe('<FoodRow />', function() {
   it('should have a table header with the food name', function() {
   	const wrapper = mount(<FoodRow searchedFood={sampleDailyFoodPortion} searchOrDaily={false}/>);
   	const tableHeaderText = wrapper.find('th').text()
-  	expect(tableHeaderText).to.equal('Beef, chuck eye roast, boneless, America\'s Beef Roast, separable lean and fat, trimmed to 0" fat, select, cooked, roasted');
+  	expect(tableHeaderText).to.equal("Chicken, broilers or fryers, back, meat only, cooked, fried");
   }) 
 
   it('should have a table column with the quantity', function() {
   	const wrapper = mount(<FoodRow searchedFood={sampleDailyFoodPortion} searchOrDaily={false}/>);
-  	expect(wrapper.state('quantity')).to.equal('1.0')
+  	expect(wrapper.state('quantity')).to.equal('2.0')
   }) 
 
   it('should have a table column with the serving size', function() {
   	const wrapper = mount(<FoodRow searchedFood={sampleDailyFoodPortion} searchOrDaily={false}/> );
   	const tableHeaderText = wrapper.find('.serving_size_cell').text()
-  	expect(tableHeaderText).to.equal('oz');
+  	expect(tableHeaderText).to.equal('unit (yield from 1 lb ready-to-cook chicken)');
   }) 
 
   it('should have a table column with the calories', function() {
   	const wrapper = mount(<FoodRow searchedFood={sampleDailyFoodPortion} searchOrDaily={false}/>);
   	const tableHeaderText = wrapper.find('.calories_cell').text()
-  	expect(tableHeaderText).to.equal('229');
+  	expect(tableHeaderText).to.equal('576');
   }) 
 
   it('should update the calories when quantity is changed', function() {
   	const wrapper = mount(<FoodRow searchedFood={sampleDailyFoodPortion} searchOrDaily={false}/>);
   	const quantityInput = wrapper.find('#quantity_input')
-  	quantityInput.instance().value = "2"
+  	quantityInput.instance().value = "1"
   	quantityInput.simulate('change')
   	const tableHeaderText = wrapper.find('.calories_cell').text()
-  	expect(tableHeaderText).to.equal('458');
+  	expect(tableHeaderText).to.equal('288');
   })
 
 

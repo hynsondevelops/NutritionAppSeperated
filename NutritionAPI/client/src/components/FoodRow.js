@@ -16,8 +16,6 @@ export default class FoodRow extends React.Component {
    */
   constructor(props) {
     super(props);
-    console.log(this.props.searchOrDaily)
-    console.log(this.props.searchedFood)
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
     if (this.props.searchOrDaily){
@@ -49,7 +47,6 @@ export default class FoodRow extends React.Component {
       console.log("Error Below")
       console.log(error);
     });*/
-    console.log(JSON.stringify(this.state.searchedFood))
     axios.post("http://localhost:3000/api/foods", {name: this.state.searchedFood.name, data: JSON.stringify(this.state.searchedFood)})
     /*$.ajax({
       url: '/food_portions',

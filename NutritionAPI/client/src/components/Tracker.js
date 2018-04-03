@@ -27,8 +27,6 @@ export default class Tracker extends React.Component {
       let JSONfoods = []
       for (let i = 0; i < Object.keys(JSON.parse(this.props.dailyDiet)["food_portions"]).length; i++)
       {
-        console.log(i)
-        console.log(JSON.parse(this.props.dailyDiet)["food_portions"][i])
 
         //console.log(this.props.dailyDiet[i])
       }
