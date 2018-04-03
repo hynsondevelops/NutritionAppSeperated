@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import FoodSelector from './components/FoodSelector'
+import DailyFoods from './components/DailyFoods'
+
 
 let sampleProps = {
   "searchedFood": {
@@ -261,5 +263,5 @@ let sampleProps = {
   "day": "March 15, 2018"
 }
 
-ReactDOM.render(<FoodSelector />, document.getElementById('root'));
+ReactDOM.render(<DailyFoods />, document.getElementById('root'));
 registerServiceWorker();
