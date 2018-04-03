@@ -16,15 +16,15 @@ export default class FoodRow extends React.Component {
    */
   constructor(props) {
     super(props);
+    console.log(this.props.searchOrDaily)
+    console.log(this.props.searchedFood)
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
-    console.log(this.props.searchOrDaily)
     if (this.props.searchOrDaily){
       this.state = {searchedFood: this.props.searchedFood, quantity: 1}
-      console.log(this.state.quantity)
     }
     else{
-      this.state = {searchedFood: this.props.searchedFood[0], quantity: this.props.searchedFood[1] };
+      this.state = {searchedFood: JSON.parse(this.props.searchedFood["food"]["data"]), quantity: this.props.searchedFood["quantity"] };
     }
   }
 
@@ -36,11 +36,11 @@ export default class FoodRow extends React.Component {
 
     //AJAX call to create a food database entry in user's daily foods
     //axios.post("http://localhost:3000/api/daily_diets/", {name: this.state.searchedFood.name, data: this.state.searchedFood})
-    axios.post("http://localhost:3000/api/daily_diets/", {date: "March 29, 2018", admin_user_id: 1}).catch(function (error) {
+    /*axios.post("http://localhost:3000/api/daily_diets/", {date: "March 29, 2018", admin_user_id: 1}).catch(function (error) {
       console.log("Error Below")
       console.log(error);
     })
-    /*axios.get("http://localhost:3000/api/daily_diets/2")
+    axios.get("http://localhost:3000/api/daily_diets/2")
     .then(function (response) {
         console.log("Response Below")
         console.log(response);
@@ -49,6 +49,8 @@ export default class FoodRow extends React.Component {
       console.log("Error Below")
       console.log(error);
     });*/
+    console.log(JSON.stringify(this.state.searchedFood))
+    axios.post("http://localhost:3000/api/foods", {name: this.state.searchedFood.name, data: JSON.stringify(this.state.searchedFood)})
     /*$.ajax({
       url: '/food_portions',
       type: 'POST',

@@ -20,18 +20,20 @@ export default class Tracker extends React.Component {
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
     //reformating food to match USDA format
+
+
+
     if (Object.keys(this.props.dailyDiet).length > 0){
       let JSONfoods = []
-      for (let i = 0; i < Object.keys(this.props.dailyDiet).length; i++)
+      for (let i = 0; i < Object.keys(JSON.parse(this.props.dailyDiet)["food_portions"]).length; i++)
       {
-        let jsonReady = this.props.dailyDiet[i][0].data.replace(/=>/g, ":")
-        let JSONfood = JSON.parse(jsonReady)
-        JSONfood.food_id = this.props.dailyDiet[i][0].id
-        JSONfood.food_portion_id = this.props.dailyDiet[i][2]
-        JSONfoods.push([JSONfood, this.props.dailyDiet[i][1]])
+        console.log(i)
+        console.log(JSON.parse(this.props.dailyDiet)["food_portions"][i])
+
+        //console.log(this.props.dailyDiet[i])
       }
-      this.state = {dailyDiet: JSONfoods};
-      console.log(JSONfoods)
+      this.state = {dailyDiet: JSON.parse(this.props.dailyDiet)["food_portions"]};
+      
     }
     else
     {
@@ -40,7 +42,7 @@ export default class Tracker extends React.Component {
   }
 
   render() {
-    var LineChart = require("react-chartjs").Line;
+    //var LineChart = require("react-chartjs").Line;
 
     return (
       <div>
