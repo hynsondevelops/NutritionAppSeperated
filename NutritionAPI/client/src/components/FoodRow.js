@@ -18,8 +18,10 @@ export default class FoodRow extends React.Component {
     super(props);
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
+    console.log(this.props.searchOrDaily)
     if (this.props.searchOrDaily){
       this.state = {searchedFood: this.props.searchedFood, quantity: 1}
+      console.log(this.state.quantity)
     }
     else{
       this.state = {searchedFood: this.props.searchedFood[0], quantity: this.props.searchedFood[1] };

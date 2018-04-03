@@ -7,20 +7,55 @@ import React from 'react';
 import { expect, assert } from 'chai';
 import { render, mount } from 'enzyme';
 import { spy } from 'sinon';
+import FoodRow from '../src/components/FoodRow.js';
 import DailyFoods from '../src/components/DailyFoods.js';
-import {sampleFoodSearchResults} from './data/FoodPortion.js';
-
+import {sampleObject} from './data/FoodPortion.js';
 
 describe('<DailyFoods />', function() {
   it('should have a table Selector', function () {
-      const wrapper = mount(<DailyFoods dailyDiet={sampleFoodSearchResults}/>);
-      expect(wrapper.find('tr')).to.have.length(1);
+      const wrapper = mount(<DailyFoods dailyDiet={[sampleObject]}/>);
+      expect(wrapper.find('tr')).to.have.length(2);
    });
 
   it('should have four columns', function() {
-  	const wrapper = mount(<DailyFoods dailyDiet={sampleFoodSearchResults}/>);
-  	expect(wrapper.find('th')).to.have.length(4);
+  	const wrapper = mount(<DailyFoods dailyDiet={[sampleObject]}/>);
+  	expect(wrapper.find('th')).to.have.length(5);
   });
+
+  //data checks
+  it('should have a table header with the food name', function() {
+  	const wrapper = mount(<DailyFoods dailyDiet={[sampleObject]}/>);
+  	const tableHeaderText = wrapper.find('.name_cell').text()
+  	expect(tableHeaderText).to.equal('Beef, chuck eye roast, boneless, America\'s Beef Roast, separable lean and fat, trimmed to 0" fat, select, cooked, roasted');
+  }) 
+
+  it('should have a table column with the quantity', function() {
+  	const wrapper = mount(<DailyFoods dailyDiet={[sampleObject]}/>);
+  	expect(wrapper.find('#quantity_input')).to.have.length(1)
+  }) 
+
+  it('should have a table column with the serving size', function() {
+  	const wrapper = mount(<DailyFoods dailyDiet={[sampleObject]}/>);
+  	const tableHeaderText = wrapper.find('.serving_size_cell').text()
+  	expect(tableHeaderText).to.equal('oz');
+  }) 
+
+  it('should have a table column with the calories', function() {
+  	const wrapper = mount(<DailyFoods dailyDiet={[sampleObject]}/>);
+  	const tableHeaderText = wrapper.find('.calories_cell').text()
+  	expect(tableHeaderText).to.equal('229');
+  }) 
+
+  it('should update the calories when quantity is changed', function() {
+  	const wrapper = mount(<DailyFoods dailyDiet={[sampleObject]}/>);
+  	const quantityInput = wrapper.find('#quantity_input')
+  	quantityInput.instance().value = "2"
+  	quantityInput.simulate('change')
+  	const tableHeaderText = wrapper.find('.calories_cell').text()
+  	expect(tableHeaderText).to.equal('458');
+  })
+
+
 
 
 });

@@ -3324,3 +3324,4 @@ export const sampleFoodSearchResults = {
     ]
   }
 }
+
