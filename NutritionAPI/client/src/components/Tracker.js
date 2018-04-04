@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import FoodSelector from './FoodSelector';
 import DailyFoods from './DailyFoods';
+import Macronutrient from './Macronutrient';
 
 
 export default class Tracker extends React.Component {
@@ -41,7 +42,6 @@ export default class Tracker extends React.Component {
 
   render() {
     //var LineChart = require("react-chartjs").Line;
-
     return (
       <div>
         <h3> {this.props.day} </h3>
@@ -50,6 +50,9 @@ export default class Tracker extends React.Component {
   		  </div>
         <div className="row">
             <DailyFoods dailyDiet={this.state.dailyDiet} />
+        </div>
+        <div className="row">
+            <Macronutrient dailyDiet={this.state.dailyDiet} />
         </div>
       </div>
 

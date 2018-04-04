@@ -1,0 +1,122 @@
+import PropTypes from 'prop-types';
+import React from 'react';
+//import {Doughnut} from "react-chartjs";
+
+export default class Macronutrients extends React.Component {
+  static propTypes = {
+  	//array of food portions
+    dailyDiet: PropTypes.array
+  };
+
+  /**
+   * @param props - Comes from your rails view.
+   */
+  constructor(props) {
+    super(props);
+
+
+    // How to set initial state in ES6 class syntax
+    // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
+    //reformating food to match USDA format
+    
+    this.state = { };
+  }
+
+  render() {
+    //all in grams
+    let calorieTotal = 0;
+    let carbTotal = 0;
+    let proteinTotal = 0;
+    let fatTotal = 0;
+    for (let i = 0; i < Object.keys(this.props.dailyDiet).length; i++){
+    	console.log(JSON.parse(this.props.dailyDiet[i].food.data).nutrients)
+    	let nutrientArray = JSON.parse(this.props.dailyDiet[i].food.data).nutrients
+    	let portionQuantity = this.props.dailyDiet[i].quantity
+    	console.log(portionQuantity)
+
+    	let calorieObject = nutrientArray.find(function(nutrient) {
+    	  return nutrient.nutrient_id == 208;
+    	})
+
+    	let proteinObject = nutrientArray.find(function(nutrient) {
+    	  return nutrient.nutrient_id == 203;
+    	})
+
+    	let fatObject = nutrientArray.find(function(nutrient) {
+    	  return nutrient.nutrient_id == 204;
+    	})
+
+    	let carbohydrateObject = nutrientArray.find(function(nutrient) {
+    	  return nutrient.nutrient_id == 205;
+    	})
+
+
+      calorieTotal += parseFloat(calorieObject.value) * parseFloat(portionQuantity)
+      proteinTotal += parseFloat(proteinObject.value) * parseFloat(portionQuantity)
+      fatTotal += parseFloat(fatObject.value) * parseFloat(portionQuantity)
+      carbTotal += parseFloat(carbohydrateObject.value) * parseFloat(portionQuantity)
+    }
+    let chartData = [
+      {
+        value: proteinTotal,
+        color:"#F7464A",
+        highlight: "#FF5A5E",
+        label: "Protein"
+      },
+      {
+        value: fatTotal,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Fat"
+      },
+      {
+        value: carbTotal,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Carbohydrates"
+      }
+    ]
+    let chartOptions = {
+      //Boolean - Whether we should show a stroke on each segment
+      segmentShowStroke : true,
+
+      //String - The colour of each segment stroke
+      segmentStrokeColor : "#fff",
+
+      //Number - The width of each segment stroke
+      segmentStrokeWidth : 2,
+
+      //Number - The percentage of the chart that we cut out of the middle
+      percentageInnerCutout : 0, // This is 0 for Pie charts
+
+      //Number - Amount of animation steps
+      animationSteps : 100,
+
+      //String - Animation easing effect
+      animationEasing : "easeOutBounce",
+
+      //Boolean - Whether we animate the rotation of the Doughnut
+      animateRotate : true,
+
+      //Boolean - Whether we animate scaling the Doughnut from the centre
+      animateScale : false,
+        //String - A legend template
+        legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>"
+    }
+    const calorie = calorieTotal;
+    const carb = carbTotal;
+    const protein = proteinTotal;
+    const fat = fatTotal;
+    return (
+      <div>
+        <h3 id="calorie_total"> Calories: {calorie} kcal</h3>
+        <h3 id="protein_total"> Protein: {protein} g</h3>
+        <h3 id="fat_total"> Fat: {fat} g</h3>
+        <h3 id="carbohydrate_total"> Carbohydrates: {carb} g</h3>
+      </div>
+
+    );
+  }
+}
+
+        //<Doughnut data={chartData} options={chartOptions} width="600" height="250"/>
