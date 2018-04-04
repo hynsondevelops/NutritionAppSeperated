@@ -23,7 +23,7 @@ class DailyDietsController < ApplicationController
     @daily_diet = DailyDiet.new(daily_diet_params)
 
     if (@daily_diet.save && current_admin_user == @daily_diet.admin_user)
-      render json: @daily_diet, status: :created, location: @daily_diet
+      render json: @daily_diet.to_json(:include => [:food_portions]), status: :created, location: @daily_diet
     else
       render json: {error: "Log in to create your daily diet"}, status: 403
     end
@@ -32,7 +32,7 @@ class DailyDietsController < ApplicationController
   # PATCH/PUT /daily_diets/1
   def update
     if @daily_diet.update(daily_diet_params)
-      render json: @daily_diet
+      render json: @daily_diet.to_json(:include => [:food_portions])
     else
       render json: @daily_diet.errors, status: :unprocessable_entity
     end

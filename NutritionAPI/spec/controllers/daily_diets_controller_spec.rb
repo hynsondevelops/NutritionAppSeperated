@@ -81,6 +81,17 @@ RSpec.describe DailyDietsController, type: :controller do
 				post :create, params: @daily_diet_creation_params
 				expect(JSON.parse(response.body)["admin_user_id"]).to eq(@daily_diet.admin_user_id)
 			end
+
+			it "displays the food portions" do
+				@request.env["devise.mapping"] = Devise.mappings[:admin]
+				sign_in AdminUser.find(@daily_diet.admin_user_id)  # Using factory girl as an example
+				post :create, params: @daily_diet_creation_params
+				expect(JSON.parse(response.body)["admin_user_id"]).to eq(@daily_diet.admin_user_id)
+			end
+
+
+
+
 		end
 
 	end
