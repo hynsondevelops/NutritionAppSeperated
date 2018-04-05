@@ -15,7 +15,6 @@ const foodPortions = JSON.parse(dailyDietData)["food_portions"]
 describe('<Macronutrient />', function() {
   it('should have a calorie total for daily diet', function () {
       const wrapper = mount(<Macronutrient dailyDiet={foodPortions}/>);
-      console.log(wrapper.find('#calorie_total'))
       expect(wrapper.find('#calorie_total').text()).to.include("576 kcal");
    });
 
