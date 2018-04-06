@@ -3,6 +3,7 @@ import React from 'react';
 import {findNutrient} from '../helpers/findNutrient.js';
 //import {Doughnut} from "react-chartjs";
 
+
 export default class Macronutrients extends React.Component {
   static propTypes = {
   	//array of food portions
@@ -29,17 +30,17 @@ export default class Macronutrients extends React.Component {
     let carbTotal = 0;
     let proteinTotal = 0;
     let fatTotal = 0;
+    let arrayStr = []
     for (let i = 0; i < Object.keys(this.props.dailyDiet).length; i++){
-    	console.log(JSON.parse(this.props.dailyDiet[i].food.data).nutrients)
     	let nutrientArray = JSON.parse(this.props.dailyDiet[i].food.data).nutrients
     	let portionQuantity = this.props.dailyDiet[i].quantity
-    	console.log(portionQuantity)
+    	for (let j = 0; j < nutrientArray.length; j++)
+    	{
+    		arrayStr.push([nutrientArray[j].name, nutrientArray[j].nutrient_id])
 
-    	console.log(findNutrient)
+    	}
     	let calorieObject = findNutrient(nutrientArray, 208)
-
     	let proteinObject = findNutrient(nutrientArray, 203)
-
     	let fatObject = findNutrient(nutrientArray, 204)
     	let carbohydrateObject = findNutrient(nutrientArray, 205)
 

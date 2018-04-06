@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import axios from 'axios';
 import FoodRow from './FoodRow';
+import {findNutrient} from '../helpers/findNutrient.js';
+
 
 export default class FoodSelector extends React.Component {
     static propTypes = {

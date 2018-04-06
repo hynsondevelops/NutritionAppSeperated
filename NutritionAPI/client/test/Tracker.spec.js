@@ -10,9 +10,26 @@ import { spy } from 'sinon';
 import FoodRow from '../src/components/FoodRow.js';
 import FoodSelector from '../src/components/FoodSelector.js';
 import DailyFoods from '../src/components/DailyFoods.js';
+import Macronutrient from '../src/components/FoodSelector.js';
+import Micronutrient from '../src/components/FoodSelector.js';
+
 import Tracker from '../src/components/Tracker.js';
 import {sampleObject, dailyDietData} from './data/FoodPortion.js';
 const sampleFoods = sampleObject[0]
+
+const minerals = [
+{ name: 'Calcium, Ca', nutrient_id: 301, total: 52},
+{ name: 'Iron, Fe', nutrient_id: 303, total: 3.3},
+{ name: 'Magnesium, Mg', nutrient_id: 304, total: 50},
+{ name: 'Phosphorus, P', nutrient_id: 305, total: 352},
+{ name: 'Potassium, K', nutrient_id: 306, total: 502},
+{ name: 'Sodium, Na', nutrient_id: 307, total: 198},
+{ name: 'Zinc, Zn', nutrient_id: 309, total: 5.6},
+{ name: 'Copper, Cu', nutrient_id: 312, total: 0.19},
+{ name: 'Manganese, Mn', nutrient_id: 315, total: 0.094},
+{ name: 'Selenium, Se', nutrient_id: 317, total: 39.8}
+]
+
 
 describe('<Tracker />', function() {
   it('should have a table Selector', function () {
@@ -62,15 +79,74 @@ describe('<Tracker />', function() {
     //child components
     it('should have one FoodSelector', function() {
       const wrapper = mount(<Tracker searchedFoods={[sampleFoods]} dailyDiet={dailyDietData}/>);
-      wrapper.find(FoodSelector)
       expect(wrapper.find(FoodSelector)).to.have.length(1);
     }) 
 
     it('should have one DailyFoods', function() {
       const wrapper = mount(<Tracker searchedFoods={[sampleFoods]} dailyDiet={dailyDietData}/>);
-      wrapper.find(DailyFoods)
-      expect(wrapper.find(FoodSelector)).to.have.length(1);
+      expect(wrapper.find(DailyFoods)).to.have.length(1);
     })
+
+    it('should have one Micronutrient', function() {
+      const wrapper = mount(<Tracker searchedFoods={[sampleFoods]} dailyDiet={dailyDietData}/>);
+      expect(wrapper.find(Micronutrient)).to.have.length(1);
+    })
+
+    it('should have one Macronutrient', function() {
+      const wrapper = mount(<Tracker searchedFoods={[sampleFoods]} dailyDiet={dailyDietData}/>);
+      wrapper.find(Macronutrient)
+      expect(wrapper.find(Macronutrient)).to.have.length(1);
+    })
+
+    //Micronutrients
+    it('should have a minerals section', function () {
+        const wrapper = mount(<Tracker searchedFoods={[sampleFoods]} dailyDiet={dailyDietData}/>);
+        expect(wrapper.find('#minerals_container')).to.have.length(1);
+     });
+
+    it('should have a vitamins section', function () {
+      const wrapper = mount(<Tracker searchedFoods={[sampleFoods]} dailyDiet={dailyDietData}/>);
+        expect(wrapper.find('#vitamins_container')).to.have.length(1);
+
+     });
+
+    for (let i = 0; i < minerals.length; i++)
+    {
+      it(`should have a ${minerals[i].name} section`, function () {
+        const wrapper = mount(<Tracker searchedFoods={[sampleFoods]} dailyDiet={dailyDietData}/>);
+          expect(wrapper.find('#minerals_container').text()).to.include(minerals[i].name);
+
+       });
+
+      it(`should have a ${minerals[i].name} total for daily diet`, function () {
+        const wrapper = mount(<Tracker searchedFoods={[sampleFoods]} dailyDiet={dailyDietData}/>);
+          expect(wrapper.find(`#${minerals[i].name.split(',')[0]}_id`).text()).to.include(minerals[i].total);
+
+       });
+
+    }
+
+
+    //Macronutrients
+    it('should have a calorie total for daily diet', function () {
+      const wrapper = mount(<Tracker searchedFoods={[sampleFoods]} dailyDiet={dailyDietData}/>);
+        expect(wrapper.find('#calorie_total').text()).to.include("576 kcal");
+     });
+
+    it('should have a carbohydrate total for daily diet', function () {
+      const wrapper = mount(<Tracker searchedFoods={[sampleFoods]} dailyDiet={dailyDietData}/>);
+        expect(wrapper.find('#carbohydrate_total').text()).to.include("11.36 g");
+     });
+
+    it('should have a protein total for daily diet', function () {
+      const wrapper = mount(<Tracker searchedFoods={[sampleFoods]} dailyDiet={dailyDietData}/>);
+        expect(wrapper.find('#protein_total').text()).to.include("59.98 g");
+     });
+
+    it('should have a fat total for daily diet', function () {
+      const wrapper = mount(<Tracker searchedFoods={[sampleFoods]} dailyDiet={dailyDietData}/>);
+        expect(wrapper.find('#fat_total').text()).to.include("30.64 g");
+     });
 
 
 

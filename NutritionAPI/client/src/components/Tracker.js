@@ -3,6 +3,7 @@ import React from 'react';
 import FoodSelector from './FoodSelector';
 import DailyFoods from './DailyFoods';
 import Macronutrient from './Macronutrient';
+import Micronutrient from './Micronutrient';
 
 
 export default class Tracker extends React.Component {
@@ -53,6 +54,9 @@ export default class Tracker extends React.Component {
         </div>
         <div className="row">
             <Macronutrient dailyDiet={this.state.dailyDiet} />
+        </div>
+        <div className="row">
+            <Micronutrient dailyDiet={this.state.dailyDiet} />
         </div>
       </div>
 
