@@ -124,14 +124,7 @@ export default class FoodRow extends React.Component {
     const defaultOption = options[0];
     const AddFoodButton = AddFoodButtonTemp;
     return (
-
-    <tr>  
-            <th className="name_cell"scope="row">{this.state.searchedFood["name"]}</th>
-            <td className="quantity_cell"><input id="quantity_input" type="text" value={this.state.quantity} onChange={this.quantityFieldUpdate} onKeyDown={this.quantityUpdate} /></td>
-            <td className="serving_size_cell"><Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" /></td>
-            <td className="calories_cell">{calories}</td>
-            {AddFoodButton}
-        </tr>
+        <tr><th className="name_cell"scope="row">{this.state.searchedFood["name"]}</th><td className="quantity_cell"><input id="quantity_input" type="text" value={this.state.quantity} onChange={this.quantityFieldUpdate} onKeyDown={this.quantityUpdate} /></td><td className="serving_size_cell"><Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" /></td><td className="calories_cell">{calories}</td></tr>
     );
   }
 }

@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import axios from 'axios';
 import FoodRow from './FoodRow';
-import {findNutrient} from '../helpers/findNutrient.js';
 
 
 export default class FoodSelector extends React.Component {
@@ -101,8 +100,7 @@ export default class FoodSelector extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {foodRows }
-          
+        {foodRows}
         </tbody>
       </table>
       </div>

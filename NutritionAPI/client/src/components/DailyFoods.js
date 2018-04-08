@@ -38,9 +38,7 @@ export default class DailyFoods extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {foodRows }
-
-          
+        {foodRows}
         </tbody>
       </table>
     );
