@@ -26,7 +26,7 @@ describe('<FoodSelector />', function() {
   //data checks
   it('should have a table header with the food name', function() {
   	const wrapper = mount(<FoodSelector searchedFoods={[sampleFoods]}/>);
-  	const tableHeaderText = wrapper.find('.name_cell').text()
+  	const tableHeaderText = wrapper.find('.name_cell').at(0).text()
   	expect(tableHeaderText).to.equal('Beef, chuck eye roast, boneless, America\'s Beef Roast, separable lean and fat, trimmed to 0" fat, select, cooked, roasted');
   }) 
 
@@ -37,22 +37,22 @@ describe('<FoodSelector />', function() {
 
   it('should have a table column with the serving size', function() {
   	const wrapper = mount(<FoodSelector searchedFoods={[sampleFoods]}/>);
-  	const tableHeaderText = wrapper.find('.serving_size_cell').text()
+  	const tableHeaderText = wrapper.find('.serving_size_cell').at(0).text()
   	expect(tableHeaderText).to.equal('oz');
   }) 
 
   it('should have a table column with the calories', function() {
   	const wrapper = mount(<FoodSelector searchedFoods={[sampleFoods]}/>);
-  	const tableHeaderText = wrapper.find('.calories_cell').text()
+  	const tableHeaderText = wrapper.find('.calories_cell').at(0).text()
   	expect(tableHeaderText).to.equal('229');
   }) 
 
   it('should update the calories when quantity is changed', function() {
   	const wrapper = mount(<FoodSelector searchedFoods={[sampleFoods]}/>);
-  	const quantityInput = wrapper.find('#quantity_input')
+  	const quantityInput = wrapper.find('#quantity_input').at(0)
   	quantityInput.instance().value = "2"
   	quantityInput.simulate('change')
-  	const tableHeaderText = wrapper.find('.calories_cell').text()
+  	const tableHeaderText = wrapper.find('.calories_cell').at(0).text()
   	expect(tableHeaderText).to.equal('458');
   })
 

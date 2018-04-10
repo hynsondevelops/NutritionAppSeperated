@@ -37,22 +37,22 @@ describe('<DailyFoods />', function() {
 
   it('should have a table column with the serving size', function() {
   	const wrapper = mount(<DailyFoods dailyDiet={[sampleDailyFoodPortion]}/>);
-  	const tableHeaderText = wrapper.find('.serving_size_cell').text()
+  	const tableHeaderText = wrapper.find('.serving_size_cell').at(0).text()
   	expect(tableHeaderText).to.equal('unit (yield from 1 lb ready-to-cook chicken)');
   }) 
 
   it('should have a table column with the calories', function() {
   	const wrapper = mount(<DailyFoods dailyDiet={[sampleDailyFoodPortion]}/>);
-  	const tableHeaderText = wrapper.find('.calories_cell').text()
+  	const tableHeaderText = wrapper.find('.calories_cell').at(0).text()
   	expect(tableHeaderText).to.equal('576');
   }) 
 
   it('should update the calories when quantity is changed', function() {
   	const wrapper = mount(<DailyFoods dailyDiet={[sampleDailyFoodPortion]}/>);
-  	const quantityInput = wrapper.find('#quantity_input')
+  	const quantityInput = wrapper.find('#quantity_input').at(0)
   	quantityInput.instance().value = "1"
   	quantityInput.simulate('change')
-  	const tableHeaderText = wrapper.find('.calories_cell').text()
+  	const tableHeaderText = wrapper.find('.calories_cell').at(0).text()
   	expect(tableHeaderText).to.equal('288');
   })
 

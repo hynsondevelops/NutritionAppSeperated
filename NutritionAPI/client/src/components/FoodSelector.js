@@ -2,6 +2,19 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import axios from 'axios';
 import FoodRow from './FoodRow';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
+import Paper from 'material-ui/Paper';
+import Dropdown from 'react-dropdown';
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+
 
 
 export default class FoodSelector extends React.Component {
@@ -78,8 +91,55 @@ export default class FoodSelector extends React.Component {
     }
 
     render() {
-      const foodRows = this.state.searchedFoods.map((food) =>
-          <FoodRow key={food["ndbno"]} searchedFood={food} searchOrDaily={true} day={this.props.day} />
+      
+      const foodRows = this.state.searchedFoods.map((food) => {
+        let findingEnergy = true;
+        let i = 0;
+        let caloriesTemp;
+        let servingSizesTemp = [];
+        <input type="submit" onClick={this.handleAddFood} />
+
+        let AddFoodButtonTemp = ""
+        //search result
+        if (this.props.searchOrDaily){
+          AddFoodButtonTemp = <input id="add_food_button" type="submit" value="Add" onClick={this.handleAddFood} />
+        }
+        while (findingEnergy)
+        {
+          if (i < Object.keys(this.state.searchedFood["nutrients"]).length){
+            //looking for energy units of kcal
+            if (this.state.searchedFood["nutrients"][i]["unit"] == "kcal")
+            {
+              caloriesTemp = parseFloat(this.state.searchedFood["nutrients"][i]["value"]);
+              for (let j = 0; j < Object.keys(this.state.searchedFood["nutrients"][i]["measures"]).length; j++)
+              { 
+                servingSizesTemp.push(this.state.searchedFood["nutrients"][i]["measures"][j]["label"]);
+              }
+              findingEnergy = false;
+            }
+            i+=1;
+          }
+          //food didn't have data on kcals
+          else {
+            caloriesTemp = 0
+            servingSizesTemp.push()
+            findingEnergy = false;
+          }
+        }
+        //variables to be used in view
+        const calories = caloriesTemp * this.state.quantity;
+        const options = servingSizesTemp;
+        const defaultOption = options[0];
+        const AddFoodButton = AddFoodButtonTemp;
+        return(
+          <TableRow>
+            <TableHeaderColumn className="name_cell"scope="row">{this.state.searchedFood["name"]}</TableHeaderColumn>
+            <TableRowColumn className="quantity_cell"><input id="quantity_input" type="text" value={this.state.quantity} onChange={this.quantityFieldUpdate} onKeyDown={this.quantityUpdate} /></TableRowColumn>
+            <TableRowColumn className="serving_size_cell"><Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" /></TableRowColumn>
+            <TableRowColumn className="calories_cell">{calories}</TableRowColumn>
+          </TableRow>
+          )
+        }
         );
     return (
         <div>
@@ -90,20 +150,26 @@ export default class FoodSelector extends React.Component {
         </label>
         <input type="submit" value="Submit" />
       </form>
-    	<table className="table">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Serving Size</th>
-            <th scope="col">Calories</th>
-          </tr>
-        </thead>
-        <tbody>
-        {foodRows}
-        </tbody>
-      </table>
+      <MuiThemeProvider>
+        <Paper>
+        	<Table>
+            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+              <TableRow>
+                <TableHeaderColumn>Name</TableHeaderColumn>
+                <TableHeaderColumn>Amount</TableHeaderColumn>
+                <TableHeaderColumn>Serving Size</TableHeaderColumn>
+                <TableHeaderColumn>Calories</TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {foodRows}
+            </TableBody>
+          </Table>
+        </Paper>
+      </MuiThemeProvider>
+
       </div>
     );
     }
 }
+

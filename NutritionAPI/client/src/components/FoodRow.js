@@ -2,6 +2,15 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import axios from 'axios';
 import Dropdown from 'react-dropdown';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 export default class FoodRow extends React.Component {
@@ -124,10 +133,10 @@ export default class FoodRow extends React.Component {
     const defaultOption = options[0];
     const AddFoodButton = AddFoodButtonTemp;
     return (
-        <tr><th className="name_cell"scope="row">{this.state.searchedFood["name"]}</th><td className="quantity_cell"><input id="quantity_input" type="text" value={this.state.quantity} onChange={this.quantityFieldUpdate} onKeyDown={this.quantityUpdate} /></td><td className="serving_size_cell"><Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" /></td><td className="calories_cell">{calories}</td></tr>
+          <MuiThemeProvider><TableRow><TableHeaderColumn className="name_cell"scope="row">{this.state.searchedFood["name"]}</TableHeaderColumn><TableRowColumn className="quantity_cell"><input id="quantity_input" type="text" value={this.state.quantity} onChange={this.quantityFieldUpdate} onKeyDown={this.quantityUpdate} /></TableRowColumn><TableRowColumn className="serving_size_cell"><Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" /></TableRowColumn><TableRowColumn className="calories_cell">{calories}</TableRowColumn></TableRow></MuiThemeProvider>
     );
   }
 }
 
 
-1
+19

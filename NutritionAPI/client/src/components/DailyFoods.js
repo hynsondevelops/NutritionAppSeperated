@@ -1,6 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import FoodRow from './FoodRow.js';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+
 
 export default class DailyFoods extends React.Component {
   static propTypes = {
@@ -28,19 +38,21 @@ export default class DailyFoods extends React.Component {
         <FoodRow key={food["ndbno"]} searchedFood={food} searchOrDaily={false}/>
       );
     return (
-    	<table className="table">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Serving Size</th>
-            <th scope="col">Calories</th>
-          </tr>
-        </thead>
-        <tbody>
-        {foodRows}
-        </tbody>
-      </table>
+      <MuiThemeProvider>
+      	<Table>
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+            <TableRow>
+              <TableHeaderColumn>Name</TableHeaderColumn>
+              <TableHeaderColumn>Amount</TableHeaderColumn>
+              <TableHeaderColumn>Serving Size</TableHeaderColumn>
+              <TableHeaderColumn>Calories</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+          {foodRows}
+          </TableBody>
+        </Table>
+      </MuiThemeProvider>
     );
   }
 }
