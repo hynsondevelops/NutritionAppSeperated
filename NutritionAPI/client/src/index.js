@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import FoodTable from './components/FoodTable'
+import DailyFoods from './components/DailyFoods'
 
 let sampleProps = {
   "dailyDiet": {
@@ -1915,5 +1915,5 @@ let sampleProps = {
 }
 
 
-ReactDOM.render(<FoodTable food_portions={sampleProps.dailyDiet.food_portions} />, document.getElementById('root'));
+ReactDOM.render(<DailyFoods food_portions={sampleProps.dailyDiet.food_portions} />, document.getElementById('root'));
 registerServiceWorker();

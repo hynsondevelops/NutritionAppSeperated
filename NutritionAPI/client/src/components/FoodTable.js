@@ -19,7 +19,7 @@ import Dropdown from 'react-dropdown';
 
 export default class FoodTable extends React.Component {
     static propTypes = {
-    	 food_portions: PropTypes.array,
+       food_portions: PropTypes.array,
        day: PropTypes.string,
        tableType: PropTypes.bool
     };
@@ -29,8 +29,11 @@ export default class FoodTable extends React.Component {
     */
     constructor(props) {
     super(props);
-    console.log(this.props.food_portions)
-    this.state = {food_portions: this.props.food_portions}
+    //True:
+    if (this.tableType) { 
+
+      this.state = {food_portions: this.props.food_portions}
+    }
 
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
@@ -82,10 +85,9 @@ export default class FoodTable extends React.Component {
         }
       }
       return {name: food_portion.food.data.name, amount: food_portion.quantity, servingSizes: servingSizesTemp, calories: caloriesTemp,}
-    }
+    };
 
     render() {
-
       const foodRows = this.state.food_portions.map((food_portion) => {
         const tableReadyFoodPortion = this.energyAndServingSize(food_portion)
         return(
@@ -109,7 +111,7 @@ export default class FoodTable extends React.Component {
           </form>
           <MuiThemeProvider>
             <Paper>
-            	<Table>
+              <Table>
                 <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                   <TableRow>
                     <TableHeaderColumn>Name</TableHeaderColumn>
@@ -118,7 +120,7 @@ export default class FoodTable extends React.Component {
                     <TableHeaderColumn>Calories</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
-                <TableBody>
+                <TableBody displayRowCheckbox={false}>
                   {foodRows}
                 </TableBody>
               </Table>
@@ -126,5 +128,6 @@ export default class FoodTable extends React.Component {
           </MuiThemeProvider>
 
         </div>
-    );}
+      );
+    }
 }
