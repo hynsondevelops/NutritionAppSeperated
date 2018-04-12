@@ -49,10 +49,10 @@ export default class Tracker extends React.Component {
         <Navbar />
         <h3> {this.props.day} </h3>
       	<div className="row">
-  				  <FoodSelector searchedFoods={this.props.searchedFoods} />
+  				  <FoodSelector foods={this.props.searchedFoods} />
   		  </div>
         <div className="row">
-            <DailyFoods dailyDiet={this.state.dailyDiet} />
+            <DailyFoods food_portions={this.state.dailyDiet} />
         </div>
         <div className="row">
             <Macronutrient dailyDiet={this.state.dailyDiet} />

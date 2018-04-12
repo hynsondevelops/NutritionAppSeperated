@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import DailyFoods from './components/DailyFoods'
+import FoodSelector from './components/FoodSelector'
 
 let sampleProps = {
   "dailyDiet": {
@@ -1915,5 +1915,5 @@ let sampleProps = {
 }
 
 
-ReactDOM.render(<DailyFoods food_portions={sampleProps.dailyDiet.food_portions} />, document.getElementById('root'));
+ReactDOM.render(<Tracker foods={[sampleProps.dailyDiet.food_portions[0].food.data]} />, document.getElementById('root'));
 registerServiceWorker();
