@@ -5,6 +5,7 @@ import DailyFoods from './DailyFoods';
 import Macronutrient from './Macronutrient';
 import Micronutrient from './Micronutrient';
 import Navbar from './Navbar';
+import axios from 'axios';
 
 export default class Tracker extends React.Component {
   static propTypes = {
@@ -22,24 +23,20 @@ export default class Tracker extends React.Component {
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
     //reformating food to match USDA format
-
-
-
-    if (Object.keys(this.props.dailyDiet).length > 0){
-      let JSONfoods = []
-      for (let i = 0; i < Object.keys(JSON.parse(this.props.dailyDiet)["food_portions"]).length; i++)
-      {
-
-        //console.log(this.props.dailyDiet[i])
-      }
-      this.state = {dailyDiet: JSON.parse(this.props.dailyDiet)["food_portions"]};
-      
-    }
-    else
-    {
-      this.state = {dailyDiet: []}
-    }
+    this.state = {dailyDiet: this.props.dailyDiet.food_portions}
   }
+
+  /*componentWillMount() {
+    axios.get("/api/daily_diets/1")
+    .then(result => this.setDailyDiet(result))
+  }*/
+  setDailyDiet = (result) => {
+    console.log(result)
+    this.setState({dailyDiet: result.data.food_portions})
+    console.log(this.state)
+    this.forceUpdate()
+  }
+
 
   render() {
     //var LineChart = require("react-chartjs").Line;
@@ -55,10 +52,11 @@ export default class Tracker extends React.Component {
             <DailyFoods food_portions={this.state.dailyDiet} />
         </div>
         <div className="row">
-            <Macronutrient dailyDiet={this.state.dailyDiet} />
+          <Macronutrient dailyDiet={this.state.dailyDiet} />
         </div>
         <div className="row">
-            <Micronutrient dailyDiet={this.state.dailyDiet} />
+          <Micronutrient dailyDiet={this.state.dailyDiet} />
+
         </div>
       </div>
 

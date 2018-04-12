@@ -7,7 +7,6 @@ import React from 'react';
 import { expect, assert } from 'chai';
 import { render, mount } from 'enzyme';
 import { spy } from 'sinon';
-import FoodRow from '../src/components/FoodRow.js';
 import DailyFoods from '../src/components/DailyFoods.js';
 import {sampleFoodPortions} from './data/FoodPortion.js';
 const sample_food_portions = sampleFoodPortions.dailyDiet.food_portions

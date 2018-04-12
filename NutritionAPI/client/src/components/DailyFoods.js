@@ -28,37 +28,45 @@ export default class DailyFoods extends React.Component {
     constructor(props) {
     super(props);
     //True:
-    
+
     this.state = {food_portions: this.props.food_portions}
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
     }
 
     quantityFieldUpdate = (event) => {
-      //get the name of the food to be updated
-      const name = event.currentTarget.parentElement.parentElement.children[0].innerHTML
-      //find the food_portion object to update
-      const food_portion = this.state.food_portions.find(function(portion) {
-        return portion.food.data.name == name;
-      });    
-      let food_portion_temp = {...food_portion}
-      //update Rails database
-      const updateURL = '/api/food_portions/' + food_portion_temp.id.toString(); 
-      food_portion_temp.created_at = undefined;
-      food_portion_temp.updated_at = undefined;
-      food_portion_temp.id = undefined;
-      food_portion_temp.quantity = event.target.value
-      food_portion.quantity = event.target.value
-      axios.patch(updateURL, food_portion_temp)
-      let newPortions = this.state.food_portions
-      for (let i = 0; i < newPortions.length; i++)
+      // if 0 check if user wants to delete food_portion
+      if (event.target.value == 0)
       {
-        if (newPortions[i].food.data.name == name){
-          newPortions.quantity = event.target.value
-        }
-      }
-      this.setState({food_portions: newPortions})
 
+      }
+      else
+      {
+        //get the name of the food to be updated
+        const name = event.currentTarget.parentElement.parentElement.children[0].innerHTML
+        //find the food_portion object to update
+        const food_portion = this.state.food_portions.find(function(portion) {
+          return portion.food.data.name == name;
+        });    
+        let food_portion_temp = {...food_portion}
+        //update Rails database
+        const updateURL = '/api/food_portions/' + food_portion_temp.id.toString(); 
+        food_portion_temp.created_at = undefined;
+        food_portion_temp.updated_at = undefined;
+        food_portion_temp.id = undefined;
+        food_portion_temp.quantity = event.target.value
+        food_portion.quantity = event.target.value
+        axios.patch(updateURL, food_portion_temp)
+        let newPortions = this.state.food_portions
+        for (let i = 0; i < newPortions.length; i++)
+        {
+          if (newPortions[i].food.data.name == name){
+            newPortions.quantity = event.target.value
+          }
+        }
+        this.setState({food_portions: newPortions})
+
+      }
 
     }
 
@@ -132,6 +140,6 @@ export default class DailyFoods extends React.Component {
           </MuiThemeProvider>
 
         </div>
-      )
+        )
     ;}
 }

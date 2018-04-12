@@ -32,7 +32,7 @@ export default class Macronutrients extends React.Component {
     let fatTotal = 0;
     let arrayStr = []
     for (let i = 0; i < Object.keys(this.props.dailyDiet).length; i++){
-    	let nutrientArray = JSON.parse(this.props.dailyDiet[i].food.data).nutrients
+    	let nutrientArray = (this.props.dailyDiet[i].food.data).nutrients
     	let portionQuantity = this.props.dailyDiet[i].quantity
     	for (let j = 0; j < nutrientArray.length; j++)
     	{

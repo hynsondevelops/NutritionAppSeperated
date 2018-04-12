@@ -7,7 +7,6 @@ import React from 'react';
 import { expect, assert } from 'chai';
 import { render, mount } from 'enzyme';
 import { spy } from 'sinon';
-import FoodRow from '../src/components/FoodRow.js';
 import FoodSelector from '../src/components/FoodSelector.js';
 import {sampleObject} from './data/FoodPortion.js';
 const sampleFoods = sampleObject[0]

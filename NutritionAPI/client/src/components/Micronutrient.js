@@ -110,8 +110,8 @@ export default class Micronutrients extends React.Component {
     { name: 'Selenium, Se', nutrient_id: 317, total: 0}
     ]
     let arrayStr = []
-    for (let i = 0; i < Object.keys(this.props.dailyDiet).length; i++){
-    	let nutrientArray = JSON.parse(this.props.dailyDiet[i].food.data).nutrients
+    for (let i = 0; i < this.props.dailyDiet.length; i++){
+    	let nutrientArray = this.props.dailyDiet[i].food.data.nutrients
     	let portionQuantity = this.props.dailyDiet[i].quantity
     	//Minerals
     	for (let j = 0; j < minerals.length; j++)
