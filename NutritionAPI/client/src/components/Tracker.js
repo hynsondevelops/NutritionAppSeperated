@@ -5,6 +5,8 @@ import DailyFoods from './DailyFoods';
 import Macronutrient from './Macronutrient';
 import Micronutrient from './Micronutrient';
 import Navbar from './Navbar';
+import UserSession from './UserSession';
+
 import axios from 'axios';
 
 export default class Tracker extends React.Component {

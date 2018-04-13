@@ -10,9 +10,11 @@ class DailyDietsController < ApplicationController
 
   # GET /daily_diets/1
   def show
+    print("down")
     print(current_admin_user)
+
     if (current_admin_user == @daily_diet.admin_user)
-      render json: @daily_diet.to_json(:include => [:food_portions])
+      render json: @daily_diet.to_json(include: {food_portions: {include: :food}})
     else 
       render json: {error: "Log in to view your daily diet"}, status: 403
     end
@@ -31,10 +33,14 @@ class DailyDietsController < ApplicationController
 
   # PATCH/PUT /daily_diets/1
   def update
-    if @daily_diet.update(daily_diet_params)
-      render json: @daily_diet.to_json(:include => [:food_portions])
-    else
-      render json: @daily_diet.errors, status: :unprocessable_entity
+    if (current_admin_user == @daily_diet.admin_user)
+      if @daily_diet.update(daily_diet_params)
+        render json: @daily_diet.to_json(:include => [:food_portions])
+      else
+        render json: @daily_diet.errors, status: :unprocessable_entity
+      end
+    else 
+      render json: {error: "Log in to create your daily diet"}, status: 403
     end
   end
 

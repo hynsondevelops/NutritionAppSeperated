@@ -26,10 +26,14 @@ class FoodPortionsController < ApplicationController
 
   # PATCH/PUT /food_portions/1
   def update
-    if @food_portion.update(food_portion_params)
-      render json: @food_portion
+    if (@food_portion.daily_diet.admin_user == current_admin_user)
+      if @food_portion.update(food_portion_params)
+        render json: @food_portion
+      else
+        render json: @food_portion.errors, status: :unprocessable_entity
+      end
     else
-      render json: @food_portion.errors, status: :unprocessable_entity
+      render json: {error: "Log in to update your daily diet"}, status: 403
     end
   end
 

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import Tracker from './components/Tracker'
+import UserSession from './components/UserSession'
 
 let sampleProps = {
   "dailyDiet": {
@@ -1915,5 +1915,7 @@ let sampleProps = {
 }
 
 
-ReactDOM.render(<Tracker {...sampleProps} />, document.getElementById('root'));
+
+
+ReactDOM.render(<UserSession  />, document.getElementById('root'));
 registerServiceWorker();
