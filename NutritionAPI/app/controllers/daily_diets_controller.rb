@@ -10,11 +10,20 @@ class DailyDietsController < ApplicationController
 
   # GET /daily_diets/1
   def show
-    print("down")
-    print(current_admin_user)
-
+    print(params[:day_increment])
+    print("\n")
+    dateDesired = params[:date]
     if (current_admin_user == @daily_diet.admin_user)
-      render json: @daily_diet.to_json(include: {food_portions: {include: :food}})
+      print(dateDesired + "\n")
+      if (params[:day_increment] != nil)
+        dateObject = Date.strptime(params[:date], '%m/%d/%Y')
+        dateDesired = (dateObject + params[:day_increment].to_i.days).strftime("%m/%d/%Y")
+      end
+      print(dateDesired)
+      @daily_diet = DailyDiet.where(admin_user_id: current_admin_user.id, date: dateDesired)
+      print(@daily_diet.to_json)
+      print("\n")
+      render json: @daily_diet[0].to_json(include: {food_portions: {include: :food}})
     else 
       render json: {error: "Log in to view your daily diet"}, status: 403
     end

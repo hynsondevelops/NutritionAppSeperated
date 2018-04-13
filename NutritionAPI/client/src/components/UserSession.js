@@ -16,7 +16,6 @@ import Tracker from './Tracker'
 export default class UserSession extends React.Component {
   static propTypes = {
   	user: PropTypes.object
-  	
   };
 
   /**
@@ -40,17 +39,30 @@ export default class UserSession extends React.Component {
   	this.setState({user: result.data})
   }
 
-  getDailyDiet = () => {
+  getDailyDiet = (dayIncrement) => {
   	console.log(this.state)
-  	axios.get('api/daily_diets/1')
+    let dateDesired = ""
+    if (this.state.dailyDiet != undefined) {
+      let dateObject = Date.parse(this.state.dailyDiet.date);
+      console.log(dateObject + 1)
+      this.state.dailyDiet
+    }
+    const dailyDietURL = ""
+  	axios.get('api/daily_diets/1', {params: {date: "03/29/2018", day_increment: dayIncrement}})
   	.then(result => this.setDailyDiet(result))
 
   }
 
   setDailyDiet = (result) => {
-  	result.data.food_portions[0].food.data = JSON.parse(result.data.food_portions[0].food.data.replace(/=>/g, ":"))
+    console.log(result.data)
+    for (let i = 0; i < result.data.food_portions.length; i++) {
+      result.data.food_portions[i].food.data = JSON.parse(result.data.food_portions[i].food.data.replace(/=>/g, ":"))
+
+    }
   	this.setState({dailyDiet: result.data})
+    console.log("Below")
   	console.log(this.state.dailyDiet)
+    this.forceUpdate()
   }
 
   logOut = () => {
@@ -60,24 +72,32 @@ export default class UserSession extends React.Component {
 
 
   render() {
+    console.log("Rendering")
   	if (this.state.dailyDiet == undefined){
 	    return (
 	    	<MuiThemeProvider>
-	    		<FlatButton label="Log In" onClick={this.UserLogIn}/>
-	    		<FlatButton label="Daily Diet" onClick={this.getDailyDiet}/>
-	    		<FlatButton label="Log out" onClick={this.logOut}/>
-	    		<FlatButton label="State" onClick={console.log(this.state)}/>
-
+	    		<Toolbar>
+	    		  <ToolbarGroup firstChild={true}>
+		    		  <FlatButton label="Log In" onClick={this.UserLogIn}/>
+              <FlatButton label="Daily Diet" onClick={() => this.getDailyDiet(0)}/>
+		    		  <FlatButton label="Yesterday" onClick={() => this.getDailyDiet(-1)}/>
+              <FlatButton label="Tommorrow" onClick={() => this.getDailyDiet(1)}/>
+		    		  <FlatButton label="Log out" onClick={this.logOut}/>
+		    		  <FlatButton label="State" onClick={console.log(this.state)}/>	    		  
+		    		</ToolbarGroup>
+	    		</Toolbar>
 	    	</MuiThemeProvider>
 	    );
 	}
 	else {
 		return (
 			<MuiThemeProvider>
-				<FlatButton label="Log In" onClick={this.UserLogIn}/>
-				<FlatButton label="Daily Diet" onClick={this.getDailyDiet}/>
-				<FlatButton label="Log out" onClick={this.logOut}/>
-				<FlatButton label="State" onClick={console.log(this.state)}/>
+        <FlatButton label="Log In" onClick={this.UserLogIn}/>
+        <FlatButton label="Daily Diet" onClick={() => this.getDailyDiet(0)}/>
+        <FlatButton label="Yesterday" onClick={() => this.getDailyDiet(-1)}/>
+        <FlatButton label="Tommorrow" onClick={() => this.getDailyDiet(1)}/>
+        <FlatButton label="Log out" onClick={this.logOut}/>
+        <FlatButton label="State" onClick={console.log(this.state)}/>  
 				<Tracker dailyDiet={this.state.dailyDiet} searchedFoods={[]} />
 			</MuiThemeProvider>
 		)
