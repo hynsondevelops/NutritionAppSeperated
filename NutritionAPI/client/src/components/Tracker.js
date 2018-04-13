@@ -13,8 +13,13 @@ export default class Tracker extends React.Component {
   static propTypes = {
   	searchedFoods: PropTypes.array,
     dailyDiet: PropTypes.array,
-    day: PropTypes.string
   };
+
+  componentWillReceiveProps(nextProps) {
+    console.log("Here it is")
+    console.log(nextProps)
+    this.setState({ dailyDiet: nextProps.dailyDiet.food_portions });  
+  }
 
   /**
    * @param props - Comes from your rails view.
@@ -36,7 +41,6 @@ export default class Tracker extends React.Component {
     console.log(result)
     this.setState({dailyDiet: result.data.food_portions})
     console.log(this.state)
-    this.forceUpdate()
   }
 
 
@@ -45,8 +49,7 @@ export default class Tracker extends React.Component {
     return (
 
       <div>
-        <Navbar />
-        <h3> {this.props.day} </h3>
+        <h3> {this.props.dailyDiet.date} </h3>
       	<div className="row">
   				  <FoodSelector foods={this.props.searchedFoods} />
   		  </div>

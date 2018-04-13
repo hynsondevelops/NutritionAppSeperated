@@ -27,7 +27,7 @@ export default class UserSession extends React.Component {
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
     //reformating food to match USDA format
-    this.state = {user: undefined, dailyDiet: undefined}
+    this.state = {user: undefined, dailyDiet: undefined, date: "03/29/2018"}
   }
 
   UserLogIn = () => {
@@ -35,34 +35,38 @@ export default class UserSession extends React.Component {
   	axios.post('/admin/login', user)
   	.then(result => this.setUser(result))
   }
+
   setUser = (result) => {
   	this.setState({user: result.data})
+    this.getDailyDiet(0)
   }
 
   getDailyDiet = (dayIncrement) => {
   	console.log(this.state)
     let dateDesired = ""
+    //dailyDiet state set
     if (this.state.dailyDiet != undefined) {
-      let dateObject = Date.parse(this.state.dailyDiet.date);
-      console.log(dateObject + 1)
-      this.state.dailyDiet
+      dateDesired = this.state.dailyDiet.date
+    }
+    //no dailyDiet state yet
+    else {
+      dateDesired = this.state.date
     }
     const dailyDietURL = ""
-  	axios.get('api/daily_diets/1', {params: {date: "03/29/2018", day_increment: dayIncrement}})
+  	axios.get('api/daily_diets/1', {params: {date: dateDesired, day_increment: dayIncrement}})
   	.then(result => this.setDailyDiet(result))
 
   }
 
   setDailyDiet = (result) => {
+    console.log(result)
     console.log(result.data)
     for (let i = 0; i < result.data.food_portions.length; i++) {
       result.data.food_portions[i].food.data = JSON.parse(result.data.food_portions[i].food.data.replace(/=>/g, ":"))
-
     }
-  	this.setState({dailyDiet: result.data})
+  	this.setState({dailyDiet: result.data, date: result.data.date})
     console.log("Below")
-  	console.log(this.state.dailyDiet)
-    this.forceUpdate()
+  	console.log(this.state.date)
   }
 
   logOut = () => {
@@ -79,11 +83,10 @@ export default class UserSession extends React.Component {
 	    		<Toolbar>
 	    		  <ToolbarGroup firstChild={true}>
 		    		  <FlatButton label="Log In" onClick={this.UserLogIn}/>
-              <FlatButton label="Daily Diet" onClick={() => this.getDailyDiet(0)}/>
-		    		  <FlatButton label="Yesterday" onClick={() => this.getDailyDiet(-1)}/>
-              <FlatButton label="Tommorrow" onClick={() => this.getDailyDiet(1)}/>
+              <svg onClick={() => this.getDailyDiet(-1)} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z"/></svg>
+		    		  <FlatButton label={this.state.date} onClick={() => this.getDailyDiet(0)}/>
+              <svg onClick={() => this.getDailyDiet(1)} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M9 3L7.94 4.06l4.19 4.19H3v1.5h9.13l-4.19 4.19L9 15l6-6z"/></svg>
 		    		  <FlatButton label="Log out" onClick={this.logOut}/>
-		    		  <FlatButton label="State" onClick={console.log(this.state)}/>	    		  
 		    		</ToolbarGroup>
 	    		</Toolbar>
 	    	</MuiThemeProvider>
@@ -93,11 +96,10 @@ export default class UserSession extends React.Component {
 		return (
 			<MuiThemeProvider>
         <FlatButton label="Log In" onClick={this.UserLogIn}/>
-        <FlatButton label="Daily Diet" onClick={() => this.getDailyDiet(0)}/>
-        <FlatButton label="Yesterday" onClick={() => this.getDailyDiet(-1)}/>
-        <FlatButton label="Tommorrow" onClick={() => this.getDailyDiet(1)}/>
+        <svg onClick={() => this.getDailyDiet(-1)} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z"/></svg>
+        <FlatButton label={this.state.date} onClick={() => this.getDailyDiet(0)}/>
+        <svg onClick={() => this.getDailyDiet(1)} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M9 3L7.94 4.06l4.19 4.19H3v1.5h9.13l-4.19 4.19L9 15l6-6z"/></svg>
         <FlatButton label="Log out" onClick={this.logOut}/>
-        <FlatButton label="State" onClick={console.log(this.state)}/>  
 				<Tracker dailyDiet={this.state.dailyDiet} searchedFoods={[]} />
 			</MuiThemeProvider>
 		)
