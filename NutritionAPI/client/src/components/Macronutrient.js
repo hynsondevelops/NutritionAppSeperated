@@ -24,8 +24,6 @@ export default class Macronutrients extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("Here it is")
-    console.log(nextProps)
     this.setState({ dailyDiet: nextProps.dailyDiet });  
   }
 
@@ -36,8 +34,6 @@ export default class Macronutrients extends React.Component {
     let proteinTotal = 0;
     let fatTotal = 0;
     let arrayStr = []
-    console.log("MAcro render")
-    console.log(this.props.dailyDiet)
     for (let i = 0; i < Object.keys(this.props.dailyDiet).length; i++){
     	let nutrientArray = (this.props.dailyDiet[i].food.data).nutrients
     	let portionQuantity = this.props.dailyDiet[i].quantity

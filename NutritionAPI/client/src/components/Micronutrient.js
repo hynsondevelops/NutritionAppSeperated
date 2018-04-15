@@ -109,20 +109,51 @@ export default class Micronutrients extends React.Component {
     { name: 'Manganese, Mn', nutrient_id: 315, total: 0},
     { name: 'Selenium, Se', nutrient_id: 317, total: 0}
     ]
+
+    
+
+    //Vitamins
+    let vitamins = [  
+      { name: 'A', nutrient_id: 320, total: 0},
+      { name: 'B1 (Thiamine)', nutrient_id: 404, total: 0},
+      { name: 'B2 (Riboflavin)', nutrient_id: 405, total: 0},
+      { name: 'B3 (Niacin)', nutrient_id: 406, total: 0},
+      { name: 'B5 (Pantothenic Acid)', nutrient_id: 410, total: 0},
+      { name: 'B6 (Pyridoxine)', nutrient_id: 415, total: 0},
+      { name: 'B12 (Cobalamin)', nutrient_id: 307, total: 0},
+      { name: 'C', nutrient_id: 401, total: 0},
+      { name: 'D', nutrient_id: 328, total: 0}, 
+      { name: 'E', nutrient_id: 323, total: 0}, 
+      { name: 'Folate', nutrient_id: 417, total: 0},
+      { name: 'K', nutrient_id: 430, total: 0}  
+    ]
+
     let arrayStr = []
+
     for (let i = 0; i < this.props.dailyDiet.length; i++){
     	let nutrientArray = this.props.dailyDiet[i].food.data.nutrients
     	let portionQuantity = this.props.dailyDiet[i].quantity
     	//Minerals
+      console.log(nutrientArray)
+      console.log(vitamins)
     	for (let j = 0; j < minerals.length; j++)
     	{
     		minerals[j].total += parseFloat(findNutrient(nutrientArray, minerals[j].nutrient_id).value) * parseFloat(portionQuantity)
     	}
+      for (let j = 0; j < vitamins.length; j++)
+      {
+        vitamins[j].total += parseFloat(findNutrient(nutrientArray, vitamins[j].nutrient_id).value) * parseFloat(portionQuantity)
+      }
     }
 
     const mineralsToRender = minerals.map(function(mineral){
     	let nutrientId = `${mineral.name.split(',')[0]}_id`
 	    return <h3 id={nutrientId}>{mineral.name}: {mineral.total}</h3>;
+    })
+
+    const vitaminsToRender = vitamins.map(function(vitamin){
+      let nutrientId = `${vitamin.name.split(',')[0]}_id`
+      return <h3 id={nutrientId}>{vitamin.name}: {vitamin.total}</h3>;
     })
 
 
@@ -132,6 +163,7 @@ export default class Micronutrients extends React.Component {
 	      	{mineralsToRender}
 	      </div>
 	      <div id="vitamins_container">
+          {vitaminsToRender}
 	      </div>
       	</div>
     

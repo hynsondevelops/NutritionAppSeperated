@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+ import PropTypes from 'prop-types';
 import React from 'react';
 import axios from 'axios';
 import {
@@ -12,6 +12,7 @@ import {
 import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dropdown from 'react-dropdown';
+import FlatButton from 'material-ui/FlatButton';
 
 
 
@@ -19,6 +20,8 @@ import Dropdown from 'react-dropdown';
 export default class FoodSelector extends React.Component {
     static propTypes = {
        foods: PropTypes.array,
+       searchString: PropTypes.string,
+       dailyDiet: PropTypes.object
     };
 
     /**
@@ -27,13 +30,49 @@ export default class FoodSelector extends React.Component {
     constructor(props) {
     super(props);
     //True:
+    console.log("COnstructor")
     let food_portions = []
     for (let i = 0; i < this.props.foods.length; i++) {
       food_portions.push({food: this.props.foods[i], quantity: 1})
     }
-    this.state = {foods: this.props.foods, food_portions: food_portions}
+    this.state = {foods: this.props.foods, food_portions: food_portions, searchString: this.props.searchString}
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
+    }
+
+    componentWillReceiveProps(nextProps) {
+      console.log(nextProps.searchString)
+      if (nextProps.searchString == "") {
+        this.setState({food_portions: []})
+      }
+      else {
+        this.setState({food_portions: [], searchString: nextProps.searchString}, () => {
+          this.clearedFoodPortions();
+        })
+      }
+    }
+
+    clearedFoodPortions = () => {
+      let APIURL = ("https://api.nal.usda.gov/ndb/search/?format=json&q=" + this.state.searchString + "&sort=r&max=10&offset=0&api_key=hyMAaC37dIT57p36cBZ1Sn6tK5XYfnOLP4IaNSs7")
+      axios.get(APIURL)
+      .then(result => this.successfulSearch(result))
+    }
+
+    successfulSearch = (result) => {
+      for (let i = 0; i < result.data.list.item.length; i++) {
+        let APIURL = "https://api.nal.usda.gov/ndb/reports/?ndbno=" + result.data.list.item[i].ndbno + "&type=f&format=json&api_key=hyMAaC37dIT57p36cBZ1Sn6tK5XYfnOLP4IaNSs7"
+        axios.get(APIURL)
+        .then(result => this.successfulDetailedSearch(result))
+      }
+    }
+
+    successfulDetailedSearch = (result) => {
+      for (let i = 0; i < result.data.report.food.nutrients.length; i++){
+        console.log(result.data.report.food.nutrients[i].name)
+        console.log(result.data.report.food.nutrients[i].nutrient_id)
+        console.log("\n")
+      }
+      this.setState({food_portions: this.state.food_portions.concat({food: result.data.report.food, quantity: 1})})
     }
 
 
@@ -61,17 +100,36 @@ export default class FoodSelector extends React.Component {
 
     }
 
+    searchUSDA = (event) => {
+      console.log(event.target.value)
+        //making call to USDA database 
+        let APIURL = ("https://api.nal.usda.gov/ndb/search/?format=json&q=" + event.target.value + "&sort=n&max=25&offset=0&api_key=hyMAaC37dIT57p36cBZ1Sn6tK5XYfnOLP4IaNSs7")
+       /* $.getJSON({
+            url:APIURL, 
+            success: this.initialAjaxSuccess
+        })*/
+    }
+    
+
+    handleAddFoodPortion = (event, food_portion) => {
+      console.log(food_portion)
+      console.log("?")
+      food_portion.food
+      food_portion.daily_diet_id = this.props.dailyDiet.id
+      axios.post('/api/foods',{name: food_portion.food.name, data: food_portion.food})
+    }
+
     energyAndServingSize = (food_portion) => {
       let findingEnergy = true;
       let i = 0;
       let caloriesTemp;
       let servingSizesTemp = [];
-      <input type="submit" onClick={this.handleAddFood} />
+      <input type="submit" onClick={this.handleAddFoodPortion} />
       let AddFoodButtonTemp = ""
       //search result
       if (this.props.tableType)
       {
-        AddFoodButtonTemp = <input id="add_food_button" type="submit" value="Add" onClick={this.handleAddFood} />
+        AddFoodButtonTemp = <input id="add_food_button" type="submit" value="Add" onClick={this.handleAddFoodPortion} />
       }
       while (findingEnergy)
       {
@@ -101,15 +159,15 @@ export default class FoodSelector extends React.Component {
 
 
     render() {
+      console.log("Rerendering")
       const foodRows = this.state.food_portions.map((food_portion) => {
         const tableReadyFoodPortion = this.energyAndServingSize(food_portion)
           return(
             <TableRow key={food_portion.food.id}>
               <TableHeaderColumn className="name_cell"scope="row">{tableReadyFoodPortion.name}</TableHeaderColumn>
-              <TableRowColumn className="quantity_cell"><input id="quantity_input" type="text" value={tableReadyFoodPortion.quantity} onChange={this.quantityFieldUpdate} onKeyDown={this.quantityUpdate} /></TableRowColumn>
+              <TableRowColumn className="quantity_cell"><input id="quantity_input" type="text" value={tableReadyFoodPortion.quantity} onChange={(event) => this.handleAddFoodPortion(event, food_portion)} onKeyDown={this.quantityUpdate} /></TableRowColumn>
               <TableRowColumn className="serving_size_cell"><Dropdown options={tableReadyFoodPortion.servingSizes} onChange={this._onSelect} value={tableReadyFoodPortion.servingSizes[0]} placeholder="Select an option" /></TableRowColumn>
               <TableRowColumn className="calories_cell">{tableReadyFoodPortion.calories}</TableRowColumn>
-              <input id="add_food_button" type="submit" value="Add" onClick={this.handleAddFood} />
             </TableRow>
             )
           });

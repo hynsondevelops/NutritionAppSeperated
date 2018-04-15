@@ -6,6 +6,7 @@ import Macronutrient from './Macronutrient';
 import Micronutrient from './Micronutrient';
 import Navbar from './Navbar';
 import UserSession from './UserSession';
+import TextField from 'material-ui/TextField';
 
 import axios from 'axios';
 
@@ -30,7 +31,7 @@ export default class Tracker extends React.Component {
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
     //reformating food to match USDA format
-    this.state = {dailyDiet: this.props.dailyDiet.food_portions}
+    this.state = {dailyDiet: this.props.dailyDiet.food_portions, searchString: undefined}
   }
 
   /*componentWillMount() {
@@ -38,20 +39,20 @@ export default class Tracker extends React.Component {
     .then(result => this.setDailyDiet(result))
   }*/
   setDailyDiet = (result) => {
-    console.log(result)
     this.setState({dailyDiet: result.data.food_portions})
-    console.log(this.state)
   }
 
 
-  render() {
-    //var LineChart = require("react-chartjs").Line;
-    return (
+  foodSearch = (event) => {
+    this.setState({searchString: event.target.value});
+  }
 
+  render() {
+    return (
       <div>
-        <h3> {this.props.dailyDiet.date} </h3>
+        <TextField hintText="Food Search" onChange={this.foodSearch}/><br />
       	<div className="row">
-  				  <FoodSelector foods={this.props.searchedFoods} />
+  				  <FoodSelector searchString={this.state.searchString} foods={this.props.searchedFoods} dailyDiet={this.state.dailyDiet} />
   		  </div>
         <div className="row">
             <DailyFoods food_portions={this.state.dailyDiet} />
