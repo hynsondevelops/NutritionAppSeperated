@@ -10,30 +10,25 @@ class DailyDietsController < ApplicationController
 
   # GET /daily_diets/1
   def show
-    print(params[:day_increment])
-    print("\n")
     dateDesired = params[:date]
-    #check user 
-    if (current_admin_user == @daily_diet.admin_user)
-      #check date increment
-      if (params[:day_increment] != nil)
-        dateObject = Date.strptime(params[:date], '%m/%d/%Y')
-        dateDesired = (dateObject + params[:day_increment].to_i.days).strftime("%m/%d/%Y")
-      end
-      print(dateDesired)
-      #query
-      @daily_diet = DailyDiet.where(admin_user_id: current_admin_user.id, date: dateDesired)[0]
+    #check user
+    #check date increment
+    if (params[:day_increment] != nil)
+      dateObject = Date.strptime(params[:date], '%m/%d/%Y')
+      dateDesired = (dateObject + params[:day_increment].to_i.days).strftime("%m/%d/%Y")
+    end
+    #query
+    @daily_diet = DailyDiet.where(admin_user_id: current_admin_user.id, date: dateDesired)[0]
 
-      if (@daily_diet != nil)
+    if (@daily_diet != nil)
+      if (current_admin_user == @daily_diet.admin_user)
         render json: @daily_diet.to_json(include: {food_portions: {include: :food}})
-      else
-        @daily_diet = DailyDiet.create(admin_user_id: current_admin_user.id, date: dateDesired)
-        render json: @daily_diet.to_json(include: {food_portions: {include: :food}})
+      else 
+        render json: {error: "Log in to view your daily diet"}, status: 403
       end
-      print(@daily_diet.to_json)
-      print("\n")
-    else 
-      render json: {error: "Log in to view your daily diet"}, status: 403
+    else
+      @daily_diet = DailyDiet.create(admin_user_id: current_admin_user.id, date: dateDesired)
+      render json: @daily_diet.to_json(include: {food_portions: {include: :food}})
     end
   end
 

@@ -15,7 +15,12 @@ class FoodsController < ApiController
 
   # POST /foods
   def create
+    print(JSON.parse(params[:data].to_s.gsub('=>', ':')))
     @food = Food.new(name: params[:name], data: params[:data].to_json)
+    print("\n\n\n\n")
+    #JUNK!
+    print(@food.data.nutrients[0])
+    print("\n\n\n\n")
 
     if @food.save
       render json: @food, status: :created, location: @food

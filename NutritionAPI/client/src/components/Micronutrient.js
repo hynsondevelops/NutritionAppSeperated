@@ -134,8 +134,6 @@ export default class Micronutrients extends React.Component {
     	let nutrientArray = this.props.dailyDiet[i].food.data.nutrients
     	let portionQuantity = this.props.dailyDiet[i].quantity
     	//Minerals
-      console.log(nutrientArray)
-      console.log(vitamins)
     	for (let j = 0; j < minerals.length; j++)
     	{
     		minerals[j].total += parseFloat(findNutrient(nutrientArray, minerals[j].nutrient_id).value) * parseFloat(portionQuantity)
