@@ -17,6 +17,7 @@
     "test": "mocha test/helpers/browser.js test/*.spec.js",
     "tester": "mocha test/helpers/browser.js test/$FILE.spec.js",
     "eject": "react-scripts eject",
+    "deploy": "cp -a client/build/. public/",
     "postinstall": "npm run build && npm run deploy && echo 'Client built!'"
   },
   "proxy": "http://localhost:3001",
