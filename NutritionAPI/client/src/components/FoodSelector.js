@@ -52,12 +52,15 @@ export default class FoodSelector extends React.Component {
     }
 
     clearedFoodPortions = () => {
-      let APIURL = ("https://api.nal.usda.gov/ndb/search/?format=json&q=" + this.state.searchString + "&sort=r&max=10&offset=0&api_key=hyMAaC37dIT57p36cBZ1Sn6tK5XYfnOLP4IaNSs7")
-      axios.get(APIURL)
-      .then(result => this.successfulSearch(result))
+      if (this.state.searchString != undefined) {
+        let APIURL = ("https://api.nal.usda.gov/ndb/search/?format=json&q=" + this.state.searchString + "&sort=r&max=10&offset=0&api_key=hyMAaC37dIT57p36cBZ1Sn6tK5XYfnOLP4IaNSs7")
+        axios.get(APIURL)
+        .then(result => this.successfulSearch(result))
+      }
     }
 
     successfulSearch = (result) => {
+      console.log(result)
       for (let i = 0; i < result.data.list.item.length; i++) {
         let APIURL = "https://api.nal.usda.gov/ndb/reports/?ndbno=" + result.data.list.item[i].ndbno + "&type=f&format=json&api_key=hyMAaC37dIT57p36cBZ1Sn6tK5XYfnOLP4IaNSs7"
         axios.get(APIURL)
