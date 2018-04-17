@@ -53,8 +53,6 @@ export default class Tracker extends React.Component {
         <TextField hintText="Food Search" onChange={this.foodSearch}/><br />
       	<div className="row">
   				  <FoodSelector searchString={this.state.searchString} foods={this.props.searchedFoods} dailyDiet={this.state.dailyDiet} dailyDietId={this.state.dailyDietId} addFoodCallback={this.props.addFoodCallback} />
-  		  </div>
-        <div className="row">
             <DailyFoods food_portions={this.state.dailyDiet} />
         </div>
         <div className="row">

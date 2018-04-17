@@ -31,3 +31,61 @@
 #minerals_container{
   background-color: green;
 }
+
+.name_cell {
+  width: 25%;
+}
+
+#quantity_input {
+  width: 40px;
+  text-align: right;
+}
+
+.quantity_cell {
+  width: 7.5%;
+  text-align: right;
+}
+
+
+.calories_cell {
+  width: 7.5%;
+  text-align: right;
+}
+
+.serving_size_cell {
+  text-align: right !important;
+  width: 10%;
+}
+
+#name_header {
+  width: 50%;
+}
+
+#quantity_header {
+  width: 16.67%;
+  text-align: right;
+}
+
+
+#serving_size_header {
+  width: 16.67%;
+  text-align: right;
+}
+
+
+#calories_header {
+  width: 16.67%;
+  text-align: right;
+}
+
+#food_selector_container {
+  width: 50%;
+  display: inline-block;
+  height:600px;
+}
+
+#daily_foods_container {
+  width: 50%;
+  display: inline-block;
+  height:600px;
+}

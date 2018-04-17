@@ -112,18 +112,18 @@ export default class DailyFoods extends React.Component {
         const tableReadyFoodPortion = this.energyAndServingSize(food_portion)
           return(
             <TableRow key={food_portion.id}>
-              <TableHeaderColumn className="name_cell"scope="row">{tableReadyFoodPortion.name}</TableHeaderColumn>
-              <TableRowColumn className="quantity_cell"><input id="quantity_input" type="text" value={tableReadyFoodPortion.quantity} onChange={this.quantityFieldUpdate} onKeyDown={this.quantityUpdate} /></TableRowColumn>
-              <TableRowColumn className="serving_size_cell"><Dropdown options={tableReadyFoodPortion.servingSizes} onChange={this._onSelect} value={tableReadyFoodPortion.servingSizes[0]} placeholder="Select an option" /></TableRowColumn>
-              <TableRowColumn className="calories_cell">{tableReadyFoodPortion.calories}</TableRowColumn>
+              <TableHeaderColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="name_cell"scope="row">{tableReadyFoodPortion.name}</TableHeaderColumn>
+              <TableRowColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="quantity_cell"><input id="quantity_input" type="text" value={tableReadyFoodPortion.quantity} onChange={this.quantityFieldUpdate} onKeyDown={this.quantityUpdate} /></TableRowColumn>
+              <TableRowColumn className="serving_size_cell"><Dropdown options={tableReadyFoodPortion.servingSizes} onChange={this._onSelect} value={tableReadyFoodPortion.servingSizes[0]} style={{wordWrap: 'break-word', whiteSpace: 'normal'}} placeholder="Select an option" /></TableRowColumn>
+              <TableRowColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="calories_cell">{tableReadyFoodPortion.calories}</TableRowColumn>
             </TableRow>
             )
           });
       return (
-        <div>
+        <div id="daily_foods_container">
           <MuiThemeProvider>
             <Paper>
-              <Table>
+              <Table height={'600px'}>
                 <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                   <TableRow>
                     <TableHeaderColumn>Name</TableHeaderColumn>

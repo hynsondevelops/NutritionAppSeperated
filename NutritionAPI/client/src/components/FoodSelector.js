@@ -40,6 +40,7 @@ export default class FoodSelector extends React.Component {
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
     }
 
+
     componentWillReceiveProps(nextProps) {
       if (nextProps.searchString == "") {
         this.setState({food_portions: []})
@@ -151,24 +152,24 @@ export default class FoodSelector extends React.Component {
         const tableReadyFoodPortion = this.energyAndServingSize(food_portion)
           return(
             <TableRow key={food_portion.food.id}>
-              <TableHeaderColumn className="name_cell"scope="row">{tableReadyFoodPortion.name}</TableHeaderColumn>
-              <TableRowColumn className="quantity_cell"><input id="quantity_input" type="text" value={tableReadyFoodPortion.quantity} onChange={(event) => this.props.addFoodCallback(event, food_portion)} onKeyDown={this.quantityUpdate} /></TableRowColumn>
-              <TableRowColumn className="serving_size_cell"><Dropdown options={tableReadyFoodPortion.servingSizes} onChange={this._onSelect} value={tableReadyFoodPortion.servingSizes[0]} placeholder="Select an option" /></TableRowColumn>
-              <TableRowColumn className="calories_cell">{tableReadyFoodPortion.calories}</TableRowColumn>
+              <TableHeaderColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="name_cell" scope="row">{tableReadyFoodPortion.name}</TableHeaderColumn>
+              <TableRowColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="quantity_cell"><input id="quantity_input" type="text" value={tableReadyFoodPortion.quantity} onChange={(event) => this.props.addFoodCallback(event, food_portion)} onKeyDown={this.quantityUpdate} /></TableRowColumn>
+              <TableRowColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="serving_size_cell"><Dropdown className="serving_size_dropdown" options={tableReadyFoodPortion.servingSizes} onChange={this._onSelect} value={tableReadyFoodPortion.servingSizes[0]} placeholder="Select an option" /></TableRowColumn>
+              <TableRowColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="calories_cell">{tableReadyFoodPortion.calories}</TableRowColumn>
             </TableRow>
             )
           });
       return (
-        <div>
+        <div id="food_selector_container">
           <MuiThemeProvider>
             <Paper>
-              <Table>
+              <Table height={'600px'}>
                 <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                   <TableRow>
-                    <TableHeaderColumn>Name</TableHeaderColumn>
-                    <TableHeaderColumn>Amount</TableHeaderColumn>
-                    <TableHeaderColumn>Serving Size</TableHeaderColumn>
-                    <TableHeaderColumn>Calories</TableHeaderColumn>
+                    <TableHeaderColumn id="name_header">Name</TableHeaderColumn>
+                    <TableHeaderColumn id="quantity_header">Quantity</TableHeaderColumn>
+                    <TableHeaderColumn id="serving_size_header">Serving Size</TableHeaderColumn>
+                    <TableHeaderColumn id="calories_header">Calories</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
