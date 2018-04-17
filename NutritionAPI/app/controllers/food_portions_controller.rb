@@ -15,6 +15,8 @@ class FoodPortionsController < ApplicationController
 
   # POST /food_portions
   def create
+    @food = Food.where(name: params[:name])
+    print(food_portion_params)
     @food_portion = FoodPortion.new(food_portion_params)
 
     if @food_portion.save

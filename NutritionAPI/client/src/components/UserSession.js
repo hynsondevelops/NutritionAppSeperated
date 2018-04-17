@@ -101,6 +101,19 @@ export default class UserSession extends React.Component {
     .then(result => this.UserLogIn())
   }
 
+  handleAddFoodPortion = (event, food_portion) => {
+    console.log("Event")
+    console.log(event)
+    console.log("Food Portion")
+    console.log(food_portion)
+    axios.post('/api/foods',{name: food_portion.food.name, data: food_portion.food})
+    .then(result => this.handleUpdateDailyDiet(result, food_portion))
+  }
+
+  handleUpdateDailyDiet = (result, food_portion) => {
+    axios.post('/api/food_portions', {food_id: result.data.id, daily_diet_id: this.state.dailyDiet.id, quantity: food_portion.quantity})
+    .then(result => this.getDailyDiet(0))
+  }
 
   render() {
     console.log("Rendering")
@@ -131,7 +144,7 @@ export default class UserSession extends React.Component {
         <FlatButton label={this.state.date} onClick={() => this.getDailyDiet(0)}/>
         <svg onClick={() => this.getDailyDiet(1)} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M9 3L7.94 4.06l4.19 4.19H3v1.5h9.13l-4.19 4.19L9 15l6-6z"/></svg>
         <FlatButton label="Log out" onClick={this.logOut}/>
-				<Tracker dailyDiet={this.state.dailyDiet} searchedFoods={[]} />
+				<Tracker dailyDiet={this.state.dailyDiet} searchedFoods={[]} addFoodCallback={this.handleAddFoodPortion} />
 			</MuiThemeProvider>
 		)
 

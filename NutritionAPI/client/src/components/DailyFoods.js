@@ -108,7 +108,7 @@ export default class DailyFoods extends React.Component {
     };
 
     render() {
-      const foodRows = this.state.food_portions.map((food_portion) => {
+      const foodRows = this.props.food_portions.map((food_portion) => {
         const tableReadyFoodPortion = this.energyAndServingSize(food_portion)
           return(
             <TableRow key={food_portion.id}>

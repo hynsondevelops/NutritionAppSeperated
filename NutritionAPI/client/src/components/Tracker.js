@@ -19,7 +19,7 @@ export default class Tracker extends React.Component {
   componentWillReceiveProps(nextProps) {
     console.log("Here it is")
     console.log(nextProps)
-    this.setState({ dailyDiet: nextProps.dailyDiet.food_portions });  
+    this.setState({ dailyDiet: nextProps.dailyDiet.food_portions, dailyDietId: nextProps.dailyDiet.id });  
   }
 
   /**
@@ -31,7 +31,7 @@ export default class Tracker extends React.Component {
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
     //reformating food to match USDA format
-    this.state = {dailyDiet: this.props.dailyDiet.food_portions, searchString: undefined}
+    this.state = {dailyDiet: this.props.dailyDiet.food_portions, dailyDietId: this.props.dailyDiet.id, searchString: undefined}
   }
 
   /*componentWillMount() {
@@ -52,7 +52,7 @@ export default class Tracker extends React.Component {
       <div>
         <TextField hintText="Food Search" onChange={this.foodSearch}/><br />
       	<div className="row">
-  				  <FoodSelector searchString={this.state.searchString} foods={this.props.searchedFoods} dailyDiet={this.state.dailyDiet} />
+  				  <FoodSelector searchString={this.state.searchString} foods={this.props.searchedFoods} dailyDiet={this.state.dailyDiet} dailyDietId={this.state.dailyDietId} addFoodCallback={this.props.addFoodCallback} />
   		  </div>
         <div className="row">
             <DailyFoods food_portions={this.state.dailyDiet} />

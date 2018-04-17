@@ -21,7 +21,8 @@ export default class FoodSelector extends React.Component {
     static propTypes = {
        foods: PropTypes.array,
        searchString: PropTypes.string,
-       dailyDiet: PropTypes.object
+       dailyDiet: PropTypes.object,
+       dailyDietId: PropTypes.integer
     };
 
     /**
@@ -30,7 +31,6 @@ export default class FoodSelector extends React.Component {
     constructor(props) {
     super(props);
     //True:
-    console.log("COnstructor")
     let food_portions = []
     for (let i = 0; i < this.props.foods.length; i++) {
       food_portions.push({food: this.props.foods[i], quantity: 1})
@@ -41,7 +41,6 @@ export default class FoodSelector extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-      console.log(nextProps.searchString)
       if (nextProps.searchString == "") {
         this.setState({food_portions: []})
       }
@@ -67,11 +66,6 @@ export default class FoodSelector extends React.Component {
     }
 
     successfulDetailedSearch = (result) => {
-      for (let i = 0; i < result.data.report.food.nutrients.length; i++){
-        console.log(result.data.report.food.nutrients[i].name)
-        console.log(result.data.report.food.nutrients[i].nutrient_id)
-        console.log("\n")
-      }
       this.setState({food_portions: this.state.food_portions.concat({food: result.data.report.food, quantity: 1})})
     }
 
@@ -101,7 +95,6 @@ export default class FoodSelector extends React.Component {
     }
 
     searchUSDA = (event) => {
-      console.log(event.target.value)
         //making call to USDA database 
         let APIURL = ("https://api.nal.usda.gov/ndb/search/?format=json&q=" + event.target.value + "&sort=n&max=25&offset=0&api_key=hyMAaC37dIT57p36cBZ1Sn6tK5XYfnOLP4IaNSs7")
        /* $.getJSON({
@@ -110,14 +103,6 @@ export default class FoodSelector extends React.Component {
         })*/
     }
     
-
-    handleAddFoodPortion = (event, food_portion) => {
-      console.log(food_portion)
-      console.log("?")
-      food_portion.food
-      food_portion.daily_diet_id = this.props.dailyDiet.id
-      axios.post('/api/foods',{name: food_portion.food.name, data: food_portion.food})
-    }
 
     energyAndServingSize = (food_portion) => {
       let findingEnergy = true;
@@ -159,13 +144,12 @@ export default class FoodSelector extends React.Component {
 
 
     render() {
-      console.log("Rerendering")
       const foodRows = this.state.food_portions.map((food_portion) => {
         const tableReadyFoodPortion = this.energyAndServingSize(food_portion)
           return(
             <TableRow key={food_portion.food.id}>
               <TableHeaderColumn className="name_cell"scope="row">{tableReadyFoodPortion.name}</TableHeaderColumn>
-              <TableRowColumn className="quantity_cell"><input id="quantity_input" type="text" value={tableReadyFoodPortion.quantity} onChange={(event) => this.handleAddFoodPortion(event, food_portion)} onKeyDown={this.quantityUpdate} /></TableRowColumn>
+              <TableRowColumn className="quantity_cell"><input id="quantity_input" type="text" value={tableReadyFoodPortion.quantity} onChange={(event) => this.props.addFoodCallback(event, food_portion)} onKeyDown={this.quantityUpdate} /></TableRowColumn>
               <TableRowColumn className="serving_size_cell"><Dropdown options={tableReadyFoodPortion.servingSizes} onChange={this._onSelect} value={tableReadyFoodPortion.servingSizes[0]} placeholder="Select an option" /></TableRowColumn>
               <TableRowColumn className="calories_cell">{tableReadyFoodPortion.calories}</TableRowColumn>
             </TableRow>
