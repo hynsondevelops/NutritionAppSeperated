@@ -25,6 +25,7 @@ module.exports = {
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': true,
   },
+  externals: ['axios'],
   module: {
     loaders: [{
       test: /\.jsx?$/,
