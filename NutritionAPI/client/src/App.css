@@ -29,7 +29,15 @@
 
 
 #minerals_container{
-  background-color: green;
+  width: 50%;
+  display: inline-block;
+  position: relative;
+  top: -81.44px;
+}
+
+#vitamins_container{
+  width: 50%;
+  display: inline-block;
 }
 
 .name_cell {
@@ -89,3 +97,4 @@
   display: inline-block;
   height:600px;
 }
+

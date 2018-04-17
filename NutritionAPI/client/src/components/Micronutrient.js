@@ -157,13 +157,16 @@ export default class Micronutrients extends React.Component {
 
     return (
     	<div id="micronutrients_container"> 
+        <h3> Micronutrients </h3>
 	      <div id="minerals_container">
+          <h3> Minerals </h3>
 	      	{mineralsToRender}
 	      </div>
 	      <div id="vitamins_container">
+          <h3> Vitamins </h3>
           {vitaminsToRender}
 	      </div>
-      	</div>
+      </div>
     
 
     );
