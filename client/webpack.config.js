@@ -24,8 +24,8 @@ module.exports = {
     'cheerio': 'window',
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': true,
+    'axios': 'axios'
   },
-  externals: ['axios'],
   module: {
     loaders: [{
       test: /\.jsx?$/,
