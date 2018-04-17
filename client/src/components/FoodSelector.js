@@ -1,12 +1,28 @@
-import PropTypes from 'prop-types';
+ import PropTypes from 'prop-types';
 import React from 'react';
 import axios from 'axios';
-import FoodRow from './FoodRow';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
+import Paper from 'material-ui/Paper';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Dropdown from 'react-dropdown';
+import FlatButton from 'material-ui/FlatButton';
+
+
+
 
 export default class FoodSelector extends React.Component {
     static propTypes = {
-    	 searchedFoods: PropTypes.array,
-       day: PropTypes.string
+       foods: PropTypes.array,
+       searchString: PropTypes.string,
+       dailyDiet: PropTypes.object,
+       dailyDietId: PropTypes.integer
     };
 
     /**
@@ -14,99 +30,156 @@ export default class FoodSelector extends React.Component {
     */
     constructor(props) {
     super(props);
-
+    //True:
+    let food_portions = []
+    for (let i = 0; i < this.props.foods.length; i++) {
+      food_portions.push({food: this.props.foods[i], quantity: 1})
+    }
+    this.state = {foods: this.props.foods, food_portions: food_portions, searchString: this.props.searchString}
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
-    this.state = {searchedFoods: [], searchString: null};
     }
 
-    
 
-    
+    componentWillReceiveProps(nextProps) {
+      if (nextProps.searchString == "") {
+        this.setState({food_portions: []})
+      }
+      else {
+        this.setState({food_portions: [], searchString: nextProps.searchString}, () => {
+          this.clearedFoodPortions();
+        })
+      }
+    }
+
+    clearedFoodPortions = () => {
+      if (this.state.searchString != undefined) {
+        let APIURL = ("https://api.nal.usda.gov/ndb/search/?format=json&q=" + this.state.searchString + "&sort=r&max=10&offset=0&api_key=hyMAaC37dIT57p36cBZ1Sn6tK5XYfnOLP4IaNSs7")
+        axios.get(APIURL)
+        .then(result => this.successfulSearch(result))
+      }
+    }
+
+    successfulSearch = (result) => {
+      console.log(result)
+      for (let i = 0; i < result.data.list.item.length; i++) {
+        let APIURL = "https://api.nal.usda.gov/ndb/reports/?ndbno=" + result.data.list.item[i].ndbno + "&type=f&format=json&api_key=hyMAaC37dIT57p36cBZ1Sn6tK5XYfnOLP4IaNSs7"
+        axios.get(APIURL)
+        .then(result => this.successfulDetailedSearch(result))
+      }
+    }
+
+    successfulDetailedSearch = (result) => {
+      this.setState({food_portions: this.state.food_portions.concat({food: result.data.report.food, quantity: 1})})
+    }
 
 
-    initialAjaxSuccess = (data) => {
-      console.log(data)
-        this.setState({searchedFoods: []})
-        //no result found
-        if (data.list == null){
-            let placeholderFood = {
-              "ndbno": "0",
-              "name": "Sorry, no results for that search.",
-              "nutrients": [
-                {
-                  "nutrient_id": "208",
-                  "name": "Energy",
-                  "derivation": "LCCS",
-                  "group": "Proximates",
-                  "unit": "kcal",
-                  "value": "N/A",
-                  "measures": [
-                    {
-                      "label": "ONZ",
-                      "eqv": 0,
-                      "eunit": "g",
-                      "qty": 0,
-                      "value": "0"
-                    }
-                  ]
-                }
-                ]
-            }
-            this.setState({searchedFoods: [placeholderFood]})
+    quantityFieldUpdate = (event) => {
+      // if 0 check if user wants to delete food_portion
+      if (event.target.value == 0)
+      {
+
+      }
+      else
+      {
+        //get the name of the food to be updated
+        const name = event.currentTarget.parentElement.parentElement.children[0].innerHTML
+        //find the food_portion object to update
+        let newPortions = this.state.food_portions
+        for (let i = 0; i < newPortions.length; i++)
+        {
+          if (newPortions[i].food.name == name){
+            newPortions[i].quantity = event.target.value
+          }
         }
-        //makes AJAX calls for detailed info on all foods found in results
-        for (let i = 0; i < data.list.item.length; i++){
-            let APIURL = "https://api.nal.usda.gov/ndb/reports/?ndbno=" + data.list.item[i].ndbno + "&type=f&format=json&api_key=hyMAaC37dIT57p36cBZ1Sn6tK5XYfnOLP4IaNSs7"
-            axios(APIURL).then(result => this.detailedAjaxSuccess(result.data))
-        }
+        this.setState({food_portions: newPortions})
+
+      }
+
     }
 
-    detailedAjaxSuccess = (data) => {
-      console.log("Detailed")
-        this.setState({searchedFoods: this.state.searchedFoods.concat([data.report.food])})
-    }
-
-
-
-
-    handleChange = (event) => {
-      console.log(event.target.value)
-        this.setState({searchString: event.target.value});
+    searchUSDA = (event) => {
         //making call to USDA database 
         let APIURL = ("https://api.nal.usda.gov/ndb/search/?format=json&q=" + event.target.value + "&sort=n&max=25&offset=0&api_key=hyMAaC37dIT57p36cBZ1Sn6tK5XYfnOLP4IaNSs7")
-        axios(APIURL, {
-          responseType: 'json'}).then(result => this.initialAjaxSuccess(result.data))
+       /* $.getJSON({
+            url:APIURL, 
+            success: this.initialAjaxSuccess
+        })*/
     }
+    
+
+    energyAndServingSize = (food_portion) => {
+      let findingEnergy = true;
+      let i = 0;
+      let caloriesTemp;
+      let servingSizesTemp = [];
+      <input type="submit" onClick={this.handleAddFoodPortion} />
+      let AddFoodButtonTemp = ""
+      //search result
+      if (this.props.tableType)
+      {
+        AddFoodButtonTemp = <input id="add_food_button" type="submit" value="Add" onClick={this.handleAddFoodPortion} />
+      }
+      while (findingEnergy)
+      {
+        if (i < Object.keys(food_portion.food.nutrients).length){
+          //looking for energy units of kcal
+
+          if (food_portion.food.nutrients[i].unit == "kcal")
+          {
+            caloriesTemp = parseFloat(food_portion.food.nutrients[i].value);
+            for (let j = 0; j < Object.keys(food_portion.food.nutrients[i].measures).length; j++)
+            { 
+              servingSizesTemp.push(food_portion.food["nutrients"][i]["measures"][j]["label"]);
+            }
+            findingEnergy = false;
+          }
+          i+=1;
+        }
+        //food_portion didn't have data on kcals
+        else {
+          caloriesTemp = 0
+          servingSizesTemp.push()
+          findingEnergy = false;
+        }
+      }
+      return {name: food_portion.food.name, quantity: food_portion.quantity, servingSizes: servingSizesTemp, calories: food_portion.quantity * caloriesTemp}
+    };
+
 
     render() {
-      const foodRows = this.state.searchedFoods.map((food) =>
-          <FoodRow key={food["ndbno"]} searchedFood={food} searchOrDaily={true} day={this.props.day} />
-        );
-    return (
-        <div>
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Search:
-          <input className="food_search" type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    	<table className="table">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Serving Size</th>
-            <th scope="col">Calories</th>
-          </tr>
-        </thead>
-        <tbody>
-          {foodRows }
-          
-        </tbody>
-      </table>
-      </div>
-    );
-    }
+      const foodRows = this.state.food_portions.map((food_portion) => {
+        const tableReadyFoodPortion = this.energyAndServingSize(food_portion)
+          return(
+            <TableRow key={food_portion.food.id}>
+              <TableHeaderColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="name_cell" scope="row">{tableReadyFoodPortion.name}</TableHeaderColumn>
+              <TableRowColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="quantity_cell"><input id="quantity_input" type="text" value={tableReadyFoodPortion.quantity} onChange={(event) => this.props.addFoodCallback(event, food_portion)} onKeyDown={this.quantityUpdate} /></TableRowColumn>
+              <TableRowColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="serving_size_cell"><Dropdown className="serving_size_dropdown" options={tableReadyFoodPortion.servingSizes} onChange={this._onSelect} value={tableReadyFoodPortion.servingSizes[0]} placeholder="Select an option" /></TableRowColumn>
+              <TableRowColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="calories_cell">{tableReadyFoodPortion.calories}</TableRowColumn>
+            </TableRow>
+            )
+          });
+      return (
+        <div id="food_selector_container">
+          <MuiThemeProvider>
+            <Paper>
+              <Table height={'600px'}>
+                <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+                  <TableRow>
+                    <TableHeaderColumn id="name_header">Name</TableHeaderColumn>
+                    <TableHeaderColumn id="quantity_header">Quantity</TableHeaderColumn>
+                    <TableHeaderColumn id="serving_size_header">Serving Size</TableHeaderColumn>
+                    <TableHeaderColumn id="calories_header">Calories</TableHeaderColumn>
+                  </TableRow>
+                </TableHeader>
+                <TableBody displayRowCheckbox={false}>
+                  {foodRows}
+                </TableBody>
+              </Table>
+            </Paper>
+          </MuiThemeProvider>
+
+        </div>
+      )
+    ;}
 }
