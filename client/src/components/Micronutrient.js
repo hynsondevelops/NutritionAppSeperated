@@ -146,17 +146,18 @@ export default class Micronutrients extends React.Component {
 
     const mineralsToRender = minerals.map(function(mineral){
     	let nutrientId = `${mineral.name.split(',')[0]}_id`
-	    return <h3 id={nutrientId}>{mineral.name}: {mineral.total}</h3>;
+	    return <h3 id={nutrientId}>{mineral.name}: {mineral.total.toFixed(2)}</h3>;
     })
 
     const vitaminsToRender = vitamins.map(function(vitamin){
       let nutrientId = `${vitamin.name.split(',')[0]}_id`
-      return <h3 id={nutrientId}>{vitamin.name}: {vitamin.total}</h3>;
+      return <h3 id={nutrientId}>{vitamin.name}: {vitamin.total.toFixed(2)}</h3>;
     })
 
 
     return (
-    	<div id="micronutrients_container"> 
+    	<div id="micronutrient_container"> 
+        <div id="micronutrient_header">Micronutrients</div>
         <h3> Micronutrients </h3>
 	      <div id="minerals_container">
           <h3> Minerals </h3>

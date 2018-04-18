@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {findNutrient} from '../helpers/findNutrient.js';
 //import {Doughnut} from "react-chartjs";
+import CircularProgress from 'material-ui/CircularProgress';
 
 
 export default class Macronutrients extends React.Component {
@@ -99,16 +100,24 @@ export default class Macronutrients extends React.Component {
         //String - A legend template
         legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>"
     }
-    const calorie = calorieTotal;
-    const carb = carbTotal;
-    const protein = proteinTotal;
-    const fat = fatTotal;
+    const calorie = calorieTotal.toFixed(2);
+    const carb = carbTotal.toFixed(2);
+    const protein = proteinTotal.toFixed(2);
+    const fat = fatTotal.toFixed(2);
     return (
       <div>
-        <h3 id="calorie_total"> Calories: {calorie} kcal</h3>
-        <h3 id="protein_total"> Protein: {protein} g</h3>
-        <h3 id="fat_total"> Fat: {fat} g</h3>
-        <h3 id="carbohydrate_total"> Carbohydrates: {carb} g</h3>
+        <div id="macronutrient_container">
+          <div id="macronutrient_header">Macronutrients</div>
+          <h3 id="calorie_total"> Calories: {calorie} kcal/3000 kcal <CircularProgress
+                    mode="determinate"
+                    value={calorie}
+                    max={3000}
+                  /></h3>
+
+          <h3 id="protein_total"> Protein: {protein} g</h3>
+          <h3 id="fat_total"> Fat: {fat} g</h3>
+          <h3 id="carbohydrate_total"> Carbohydrates: {carb} g</h3>
+        </div>
       </div>
 
     );

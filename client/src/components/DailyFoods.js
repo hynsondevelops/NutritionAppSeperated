@@ -123,7 +123,7 @@ export default class DailyFoods extends React.Component {
         <div id="daily_foods_container">
           <MuiThemeProvider>
             <Paper>
-              <Table height={'600px'}>
+              <Table height={'300px'}>
                 <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                   <TableRow>
                     <TableHeaderColumn>Name</TableHeaderColumn>

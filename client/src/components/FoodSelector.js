@@ -162,8 +162,8 @@ export default class FoodSelector extends React.Component {
       return (
         <div id="food_selector_container">
           <MuiThemeProvider>
-            <Paper>
-              <Table height={'600px'}>
+            <Paper style={{backgroundColor: "#EFEA5A"}}>
+              <Table id="#food_selector_table" height={'300px'}>
                 <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                   <TableRow>
                     <TableHeaderColumn id="name_header">Name</TableHeaderColumn>

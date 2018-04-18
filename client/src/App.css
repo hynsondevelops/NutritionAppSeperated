@@ -90,13 +90,13 @@
 #food_selector_container {
   width: 50%;
   display: inline-block;
-  height:600px;
+  height: 300px;
 }
 
 #daily_foods_container {
   width: 50%;
   display: inline-block;
-  height:600px;
+  height: 300px;
 }
 
 #login_container {
@@ -105,6 +105,7 @@
   width: 300px;
   border-radius: 3px 3px 0 0;
   box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
+  background-color: #FFFFFF;
 }
 
 #login_header {
@@ -130,3 +131,57 @@
   margin: 20px !important;
 }
 
+body {
+  background-color: #EFEA5A;
+}
+
+#food_selector_table {
+  color: blue;
+  background-color: green;
+}
+
+#macronutrient_container {
+  text-align: center;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
+  background-color: #FFFFFF;
+}
+
+#macronutrient_header {
+  height: 50px;
+  width: 100%;
+  font-size: 18px;
+  background: #41CC92;
+  color: white;
+  line-height: 150%;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
+  margin-top: 100px;
+  padding-top: 10px;
+}
+
+#micronutrient_container {
+  text-align: center;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
+  background-color: #FFFFFF;
+}
+
+#micronutrient_header {
+  height: 50px;
+  width: 100%;
+  font-size: 18px;
+  background: #41CC92;
+  color: white;
+  line-height: 150%;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
+  margin-top: 100px;
+  padding-top: 10px;
+}
