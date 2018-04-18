@@ -16,6 +16,7 @@ gem 'puma', '~> 3.0'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+gem 'pg', '~> 1.0.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -40,7 +41,6 @@ group :development do
 end
 
 group :production do
-	gem 'pg'
 end
 
 group :test do
