@@ -120,26 +120,19 @@ export default class UserSession extends React.Component {
   	if (this.state.dailyDiet == undefined){
 	    return (
 	    	<MuiThemeProvider>
-	    		<Toolbar>
-	    		  <ToolbarGroup firstChild={true}>
-		    		  <FlatButton label="Log In" onClick={this.UserLogIn}/>
-              <FlatButton label="Register" onClick={() => this.registerUser()}/>
-              <svg onClick={() => this.getDailyDiet(-1)} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z"/></svg>
-		    		  <FlatButton label={this.state.date} onClick={() => this.getDailyDiet(0)}/>
-              <svg onClick={() => this.getDailyDiet(1)} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M9 3L7.94 4.06l4.19 4.19H3v1.5h9.13l-4.19 4.19L9 15l6-6z"/></svg>
-		    		  <FlatButton label="Log out" onClick={this.logOut}/>
-		    		</ToolbarGroup>
-	    		</Toolbar>
-          <TextField hintText="Username" onChange={this.setEmail}/><br />
-          <TextField hintText="Password" onChange={this.setPassword}/><br />
-
+          <div id="login_container">
+            <div id="login_header">Snacker Tracker</div>
+              <TextField hintText="Email" floatingLabelText="Email" onChange={this.setEmail}/><br />
+              <TextField hintText="Password" floatingLabelText="Password" type="password" onChange={this.setPassword}/><br />
+              <FlatButton id="login_button" backgroundColor="#41CC92" hoverColor="#3DCCC2" labelStyle={{color: 'white'}} label="Log In" onClick={this.UserLogIn}/>
+              <FlatButton id="register_button" backgroundColor="#41CC92" hoverColor="#3DCCC2" labelStyle={{color: 'white'}} label="Register" onClick={() => this.registerUser()}/>
+          </div>
 	    	</MuiThemeProvider>
 	    );
 	}
 	else {
 		return (
 			<MuiThemeProvider>
-        <FlatButton label="Log In" onClick={this.UserLogIn}/>
         <svg onClick={() => this.getDailyDiet(-1)} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z"/></svg>
         <FlatButton label={this.state.date} onClick={() => this.getDailyDiet(0)}/>
         <svg onClick={() => this.getDailyDiet(1)} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M9 3L7.94 4.06l4.19 4.19H3v1.5h9.13l-4.19 4.19L9 15l6-6z"/></svg>
