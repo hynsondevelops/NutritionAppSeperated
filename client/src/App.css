@@ -88,14 +88,14 @@
 }
 
 #food_selector_container {
-  width: 40%;
+  width: 45%;
   display: inline-block;
   height: 300px;
   margin: 2.5%;
 }
 
 #daily_foods_container {
-  width: 40%;
+  width: 45%;
   display: inline-block;
   height: 300px;
   margin: 2.5%;
@@ -145,9 +145,9 @@ body {
 
 #macronutrient_container {
   text-align: center;
-  width: 80%;
-  margin-left: 10%;
-  margin-right: 10%;
+  width: 40%;
+  margin-left: 30%;
+  margin-right: 30%;
   border-radius: 3px 3px 0 0;
   box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
   background-color: #FFFFFF;
@@ -199,4 +199,58 @@ body {
 
 #calorie_circular {
   position: relative;
+}
+
+#food_search_field {
+  background-color: white;
+  margin-left: 2.5%;
+  width: 45%;
+}
+
+#food_search_header {
+  height: 50px;
+  width: 100%;
+  font-size: 18px;
+  background: #41CC92;
+  color: white;
+  line-height: 150%;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
+  margin-top: 0;
+  padding-top: 10px;
+  text-align: center;
+
+}
+
+#daily_diet_navigator {
+}
+
+#food_selector_header {
+  height: 50px;
+  width: 100%;
+  font-size: 18px;
+  background: #41CC92;
+  color: white;
+  line-height: 150%;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
+  margin-top: 0;
+  padding-top: 10px;
+  text-align: center;
+
+}
+
+
+#daily_diet_header {
+  height: 50px;
+  width: 100%;
+  font-size: 18px;
+  background: #41CC92;
+  color: white;
+  line-height: 150%;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
+  margin-top: 0;
+  padding-top: 10px;
+  text-align: center;
 }

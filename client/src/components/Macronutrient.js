@@ -3,6 +3,7 @@ import React from 'react';
 import {findNutrient} from '../helpers/findNutrient.js';
 //import {Doughnut} from "react-chartjs";
 import CircularProgress from 'material-ui/CircularProgress';
+import Paper from 'material-ui/Paper';
 
 
 export default class Macronutrients extends React.Component {
@@ -108,15 +109,7 @@ export default class Macronutrients extends React.Component {
       <div>
         <div id="macronutrient_container">
           <div id="macronutrient_header">Macronutrients</div>
-          <h3 id="calorie_total"> Calories: {calorie} kcal/3000 kcal <CircularProgress
-                    className="calorie_circular"
-                    mode="determinate"
-                    value={30000}
-                    max={3000}
-                    size={60}
-                    style={{top: "20px"}}
-
-                  /><div className="circular_percent">{(3000/3000 * 100).toFixed(0)}%</div></h3>
+          <h3 id="calorie_total"> Calories: {calorie} kcal</h3>
 
           <h3 id="protein_total"> Protein: {protein} g</h3>
           <h3 id="fat_total"> Fat: {fat} g</h3>

@@ -7,6 +7,7 @@ import Micronutrient from './Micronutrient';
 import Navbar from './Navbar';
 import UserSession from './UserSession';
 import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper';
 
 import axios from 'axios';
 
@@ -50,7 +51,13 @@ export default class Tracker extends React.Component {
   render() {
     return (
       <div>
-        <TextField hintText="Food Search" onChange={this.foodSearch}/><br />
+        
+          <div id="food_search_field">
+            <Paper zDepth={5}>
+            <div id="food_search_header">Food Search</div>
+            <TextField style={{width: "100%"}} hintText="Food name" onChange={this.foodSearch}/><br />
+            </Paper>
+          </div>
       	<div className="row">
   				  <FoodSelector searchString={this.state.searchString} foods={this.props.searchedFoods} dailyDiet={this.state.dailyDiet} dailyDietId={this.state.dailyDietId} addFoodCallback={this.props.addFoodCallback} />
             <DailyFoods food_portions={this.state.dailyDiet} />

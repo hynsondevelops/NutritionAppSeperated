@@ -33,18 +33,23 @@ export default class UserSession extends React.Component {
   }
 
   componentDidMount = () => {
-    let user = {"admin_user": {"email": "admin@example.com", "password": "password", "remember_me": "0"}}
-    axios.post('/admin/login', user)
-    .then(result => console.log(result))
   }
 
   UserLogIn = () => {
   	let user = {"admin_user": {"email": this.state.email, "password": this.state.password, "remember_me": "0"}}
-  	axios.post('/admin/login', user)
-  	.then(result => this.setUser(result))
+    axios.post('/admin/login', user)
+    .then(result => this.setUser(result))
+  }
+
+  setUserLogin = (result, user) => {
+    console.log(result)
+    console.log(user)
+    axios.post('/admin/login', user)
+    .then(result => this.setUser(result))
   }
 
   setUser = (result) => {
+    console.log(result.data)
   	this.setState({user: result.data})
     this.getDailyDiet(0)
   }
@@ -90,7 +95,13 @@ export default class UserSession extends React.Component {
   	.then(result => this.setState({user: undefined, dailyDiet: undefined}))
   }
 
-  registerUser = () => {
+  registerUserLoginAdmin = () => {
+    let adminUser = {"admin_user": {"email": "admin@example.com", "password": "password", "remember_me": "0"}}
+    axios.post('/admin/login', adminUser)
+    .then(result => this.registerUser(adminUser))
+  }
+
+  registerUser = (adminUser) => {
     let user = {"admin_user": {"email": this.state.email, "password": this.state.password}}
     axios.post('/admin/admin_users', user)
     .then(result => this.logOutAdmin())
@@ -125,7 +136,7 @@ export default class UserSession extends React.Component {
               <TextField hintText="Email" floatingLabelText="Email" onChange={this.setEmail}/><br />
               <TextField hintText="Password" floatingLabelText="Password" type="password" onChange={this.setPassword}/><br />
               <FlatButton id="login_button" backgroundColor="#41CC92" hoverColor="#3DCCC2" labelStyle={{color: 'white'}} label="Log In" onClick={this.UserLogIn}/>
-              <FlatButton id="register_button" backgroundColor="#41CC92" hoverColor="#3DCCC2" labelStyle={{color: 'white'}} label="Register" onClick={() => this.registerUser()}/>
+              <FlatButton id="register_button" backgroundColor="#41CC92" hoverColor="#3DCCC2" labelStyle={{color: 'white'}} label="Register" onClick={() => this.registerUserLoginAdmin()}/>
           </div>
 	    	</MuiThemeProvider>
 	    );
@@ -133,15 +144,30 @@ export default class UserSession extends React.Component {
 	else {
 		return (
 			<MuiThemeProvider>
-        <svg onClick={() => this.getDailyDiet(-1)} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z"/></svg>
-        <FlatButton label={this.state.date} onClick={() => this.getDailyDiet(0)}/>
-        <svg onClick={() => this.getDailyDiet(1)} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M9 3L7.94 4.06l4.19 4.19H3v1.5h9.13l-4.19 4.19L9 15l6-6z"/></svg>
-        <FlatButton label="Log out" onClick={this.logOut}/>
+        <Toolbar style={{background: "linear-gradient(to bottom right, #41CC92, #048BA8"}}>
+          <h3>Hello, {this.state.email}!</h3>
+          <ToolbarGroup style={{ 
+                    float       : 'none', 
+                    width       : '400px',
+                    marginLeft  : 'auto',
+                    marginRight : '0'
+                }}>
+            <div id="daily_diet_navigator">
+              <svg onClick={() => this.getDailyDiet(-1)} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z"/></svg>
+              <FlatButton label={this.state.date} onClick={() => this.getDailyDiet(0)}/>
+              <svg onClick={() => this.getDailyDiet(1)} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M9 3L7.94 4.06l4.19 4.19H3v1.5h9.13l-4.19 4.19L9 15l6-6z"/></svg>
+            </div>
+            <FlatButton label="Log out" onClick={this.logOut}/>
+
+          </ToolbarGroup>
+      
+        </Toolbar>
+        <br></br>
 				<Tracker dailyDiet={this.state.dailyDiet} searchedFoods={[]} addFoodCallback={this.handleAddFoodPortion} />
 			</MuiThemeProvider>
 		)
 
-	}
+	 }
   }
 }
 

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {findNutrient} from '../helpers/findNutrient.js';
 import CircularProgress from 'material-ui/CircularProgress';
+import Paper from 'material-ui/Paper';
 
 const nutrientsNameId = [ [ 'Water', 255 ],
   [ 'Energy', 208 ],

@@ -122,7 +122,8 @@ export default class DailyFoods extends React.Component {
       return (
         <div id="daily_foods_container">
           <MuiThemeProvider>
-            <Paper>
+            <Paper zDepth={5}>
+              <div id="daily_diet_header">Daily Diet</div>
               <Table height={'300px'}>
                 <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                   <TableRow>
