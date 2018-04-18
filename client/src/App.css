@@ -33,7 +33,7 @@
   width: 50%;
   display: inline-block;
   position: relative;
-  top: -81.44px;
+  top: -168px;
 }
 
 #vitamins_container{
@@ -88,15 +88,17 @@
 }
 
 #food_selector_container {
-  width: 50%;
+  width: 40%;
   display: inline-block;
   height: 300px;
+  margin: 2.5%;
 }
 
 #daily_foods_container {
-  width: 50%;
+  width: 40%;
   display: inline-block;
   height: 300px;
+  margin: 2.5%;
 }
 
 #login_container {
@@ -132,7 +134,8 @@
 }
 
 body {
-  background-color: #EFEA5A;
+  background: linear-gradient(to bottom right, #EFEA5A, #E0DC72);
+
 }
 
 #food_selector_table {
@@ -184,4 +187,16 @@ body {
   box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
   margin-top: 100px;
   padding-top: 10px;
+}
+
+.circular_percent {
+  display: inline;
+  position: relative;
+  right: 45px;
+  font-size: 14px;
+  bottom: 5px;
+}
+
+#calorie_circular {
+  position: relative;
 }
