@@ -34,17 +34,22 @@ export default class DailyFoods extends React.Component {
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
     }
 
+    componentWillReceiveProps(nextProps) {
+      this.setState({food_portions: nextProps.food_portions})
+    }
+
     quantityFieldUpdate = (event) => {
       // if 0 check if user wants to delete food_portion
       if (event.target.value == 0)
       {
 
       }
-      else
+      else 
       {
         //get the name of the food to be updated
         const name = event.currentTarget.parentElement.parentElement.children[0].innerHTML
         //find the food_portion object to update
+        console.log(this.state.food_portions)
         const food_portion = this.state.food_portions.find(function(portion) {
           return portion.food.data.name == name;
         });    
@@ -56,7 +61,6 @@ export default class DailyFoods extends React.Component {
         food_portion_temp.id = undefined;
         food_portion_temp.quantity = event.target.value
         food_portion.quantity = event.target.value
-        axios.patch(updateURL, food_portion_temp)
         let newPortions = this.state.food_portions
         for (let i = 0; i < newPortions.length; i++)
         {
@@ -68,6 +72,27 @@ export default class DailyFoods extends React.Component {
 
       }
 
+    }
+
+    quantityUpdate = (event) => {
+      const name = event.currentTarget.parentElement.parentElement.children[0].innerHTML
+      //find the food_portion object to update
+      console.log(this.state.food_portions)
+      const food_portion = this.state.food_portions.find(function(portion) {
+        return portion.food.data.name == name;
+      });    
+      let food_portion_temp = {...food_portion}
+      //update Rails database
+      const updateURL = '/api/food_portions/' + food_portion_temp.id.toString(); 
+      food_portion_temp.created_at = undefined;
+      food_portion_temp.updated_at = undefined;
+      food_portion_temp.id = undefined;
+      food_portion_temp.quantity = event.target.value
+      if (event.keyCode == 13) {
+        this.props.updateFoodCallback(updateURL, food_portion)
+      }
+
+      //this.setState({food_portions: newPortions})
     }
 
     energyAndServingSize = (food_portion) => {

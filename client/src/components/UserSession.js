@@ -126,6 +126,13 @@ export default class UserSession extends React.Component {
     .then(result => this.getDailyDiet(0))
   }
 
+  quantityUpdate = (updateURL, food_portion) => {
+    console.log(updateURL)
+    console.log(food_portion)
+      axios.patch(updateURL, food_portion)
+      .then(result => this.getDailyDiet(0))
+  }
+
   render() {
     console.log("Rendering")
   	if (this.state.dailyDiet == undefined){
@@ -163,7 +170,7 @@ export default class UserSession extends React.Component {
       
         </Toolbar>
         <br></br>
-				<Tracker dailyDiet={this.state.dailyDiet} searchedFoods={[]} addFoodCallback={this.handleAddFoodPortion} />
+				<Tracker dailyDiet={this.state.dailyDiet} searchedFoods={[]} addFoodCallback={this.handleAddFoodPortion} updateFoodCallback={this.quantityUpdate} />
 			</MuiThemeProvider>
 		)
 

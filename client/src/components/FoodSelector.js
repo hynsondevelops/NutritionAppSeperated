@@ -80,8 +80,9 @@ export default class FoodSelector extends React.Component {
     }
 
 
-    quantityFieldUpdate = (event) => {
+    quantityFieldUpdate = (event, food_portion) => {
       // if 0 check if user wants to delete food_portion
+      console.log(event.keyCode)
       if (event.target.value == 0)
       {
 
@@ -92,14 +93,22 @@ export default class FoodSelector extends React.Component {
         const name = event.currentTarget.parentElement.parentElement.children[0].innerHTML
         //find the food_portion object to update
         let newPortions = this.state.food_portions
+        console.log("DOWN")
+        console.log(newPortions)
+        let newPortion = ""
         for (let i = 0; i < newPortions.length; i++)
         {
+          console.log("LOOp")
+          console.log(newPortions[i].food.name)
           if (newPortions[i].food.name == name){
+            console.log("NAME")
+            console.log(event.target.value)
             newPortions[i].quantity = event.target.value
+            newPortion = newPortions[i]
           }
         }
         this.setState({food_portions: newPortions})
-
+        this.props.addFoodCallback(event, newPortion)
       }
 
     }
@@ -159,7 +168,7 @@ export default class FoodSelector extends React.Component {
           return(
             <TableRow key={food_portion.food.id}>
               <TableHeaderColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="name_cell" scope="row">{tableReadyFoodPortion.name}</TableHeaderColumn>
-              <TableRowColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="quantity_cell"><input id="quantity_input" type="text" value={tableReadyFoodPortion.quantity} onChange={(event) => this.props.addFoodCallback(event, food_portion)} onKeyDown={this.quantityUpdate} /></TableRowColumn>
+              <TableRowColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="quantity_cell"><input id="quantity_input" type="text" value={tableReadyFoodPortion.quantity} onChange={(event) => this.quantityFieldUpdate(event, food_portion)} /></TableRowColumn>
               <TableRowColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="serving_size_cell"><Dropdown className="serving_size_dropdown" options={tableReadyFoodPortion.servingSizes} onChange={this._onSelect} value={tableReadyFoodPortion.servingSizes[0]} placeholder="Select an option" /></TableRowColumn>
               <TableRowColumn style={{wordWrap: 'break-word', whiteSpace: 'normal'}} className="calories_cell">{tableReadyFoodPortion.calories}</TableRowColumn>
             </TableRow>

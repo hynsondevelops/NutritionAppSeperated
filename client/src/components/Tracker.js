@@ -35,6 +35,9 @@ export default class Tracker extends React.Component {
     this.state = {dailyDiet: this.props.dailyDiet.food_portions, dailyDietId: this.props.dailyDiet.id, searchString: undefined}
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({dailyDiet: nextProps.dailyDiet.food_portions, dailyDietId: nextProps.dailyDiet.id})
+  }
   /*componentWillMount() {
     axios.get("/api/daily_diets/1")
     .then(result => this.setDailyDiet(result))
@@ -60,7 +63,7 @@ export default class Tracker extends React.Component {
           </div>
       	<div className="row">
   				  <FoodSelector searchString={this.state.searchString} foods={this.props.searchedFoods} dailyDiet={this.state.dailyDiet} dailyDietId={this.state.dailyDietId} addFoodCallback={this.props.addFoodCallback} />
-            <DailyFoods food_portions={this.state.dailyDiet} />
+            <DailyFoods food_portions={this.state.dailyDiet} updateFoodCallback={this.props.updateFoodCallback} />
         </div>
         <div className="row">
           <Macronutrient dailyDiet={this.state.dailyDiet} />
