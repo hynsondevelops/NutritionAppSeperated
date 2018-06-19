@@ -3,8 +3,11 @@ A Ruby on Rails application to track food and nutritional goals similiar to [Cro
 
 # Demo
 For testing, one can login with the following credentials.
+
 Username: password@password.com
+
 Password: password
+
 https://nutrition-snacker-tracker.herokuapp.com/
 
 ## Features
