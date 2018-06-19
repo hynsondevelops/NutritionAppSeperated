@@ -80,6 +80,7 @@ export default class FoodSelector extends React.Component {
     }
 
 
+
     quantityFieldUpdate = (event, food_portion) => {
       // if 0 check if user wants to delete food_portion
       console.log(event.keyCode)

@@ -2,7 +2,10 @@
 A Ruby on Rails application to track food and nutritional goals similiar to [Cronometer](https://cronometer.com/).
 
 # Demo
-Coming Soon
+For testing, one can login with the following credentials.
+Username: password@password.com
+Password: password
+https://nutrition-snacker-tracker.herokuapp.com/
 
 ## Features
 **Food**
@@ -15,6 +18,7 @@ Macro-nutrient (carbohydrates, protein, and fat) and micro-nutrient (minerals, v
 
 Allows for selecting quantities of any combination of foods within the USDA database to track daily calorie and nutrient goals. 
 
+Allows daily diary entries of foods that track both micro-nutrients and macro-nutrients to be stored and reviewed. 
 
 
  
