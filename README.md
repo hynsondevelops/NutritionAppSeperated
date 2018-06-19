@@ -1,5 +1,5 @@
 # NutritionTracker
-A Ruby on Rails application to track food and nutritional goals similiar to [Cronometer](https://cronometer.com/).
+A Ruby on Rails and ReactJS application to track food and nutritional goals similiar to [Cronometer](https://cronometer.com/).
 
 # Demo
 For testing, one can login with the following credentials.
