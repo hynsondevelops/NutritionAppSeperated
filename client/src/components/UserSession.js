@@ -36,20 +36,28 @@ export default class UserSession extends React.Component {
   }
 
   UserLogIn = () => {
+    console.log("User login")
   	let user = {"admin_user": {"email": this.state.email, "password": this.state.password, "remember_me": "0"}}
-    axios.post('/admin/login', user)
+    const instance = axios.create({
+      baseURL: 'http://localhost:3000/'
+    })
+    instance.post('/admin/login', user)
     .then(result => this.setUser(result))
   }
 
   setUserLogin = (result, user) => {
+    const instance = axios.create({
+      baseURL: 'http://localhost:3000'
+    })
     console.log(result)
     console.log(user)
-    axios.post('/admin/login', user)
+    instance.post('/admin/login', user)
     .then(result => this.setUser(result))
   }
 
   setUser = (result) => {
-    console.log(result.data)
+    console.log("setUser")
+    console.log(result)
   	this.setState({user: result.data})
     this.getDailyDiet(0)
   }
@@ -63,6 +71,9 @@ export default class UserSession extends React.Component {
   }
 
   getDailyDiet = (dayIncrement) => {
+    const instance = axios.create({
+      baseURL: 'http://localhost:3000/'
+    })
   	console.log(this.state)
     let dateDesired = ""
     //dailyDiet state set
@@ -74,7 +85,7 @@ export default class UserSession extends React.Component {
       dateDesired = this.state.date
     }
     const dailyDietURL = ""
-  	axios.get('api/daily_diets/1', {params: {date: dateDesired, day_increment: dayIncrement}})
+  	instance.get('api/daily_diets/1', {params: {date: dateDesired, day_increment: dayIncrement}})
   	.then(result => this.setDailyDiet(result))
 
   }
@@ -91,24 +102,36 @@ export default class UserSession extends React.Component {
   }
 
   logOut = () => {
-  	axios.get('/admin/logout')
+    const instance = axios.create({
+      baseURL: 'http://localhost:3000'
+    })
+  	instance.get('/admin/logout')
   	.then(result => this.setState({user: undefined, dailyDiet: undefined}))
   }
 
   registerUserLoginAdmin = () => {
+    const instance = axios.create({
+      baseURL: 'http://localhost:3000/'
+    })
     let adminUser = {"admin_user": {"email": "admin@example.com", "password": "password", "remember_me": "0"}}
-    axios.post('/admin/login', adminUser)
+    instance.post('/admin/login', adminUser)
     .then(result => this.registerUser(adminUser))
   }
 
   registerUser = (adminUser) => {
+    const instance = axios.create({
+      baseURL: 'http://localhost:3000/'
+    })
     let user = {"admin_user": {"email": this.state.email, "password": this.state.password}}
-    axios.post('/admin/admin_users', user)
-    .then(result => this.logOutAdmin())
+    instance.post('/admin/admin_users', user)
+    .then(result => this.UserLogIn())
   }
 
   logOutAdmin = () => {
-    axios.get('/admin/logout')
+    const instance = axios.create({
+      baseURL: 'http://localhost:3000/'
+    })
+    instance.get('/admin/logout')
     .then(result => this.UserLogIn())
   }
 
@@ -122,7 +145,10 @@ export default class UserSession extends React.Component {
   }
 
   handleUpdateDailyDiet = (result, food_portion) => {
-    axios.post('/api/food_portions', {food_id: result.data.id, daily_diet_id: this.state.dailyDiet.id, quantity: food_portion.quantity})
+    const instance = axios.create({
+      baseURL: 'http://localhost:3000'
+    })
+    instance.post('/api/food_portions', {food_id: result.data.id, daily_diet_id: this.state.dailyDiet.id, quantity: food_portion.quantity})
     .then(result => this.getDailyDiet(0))
   }
 

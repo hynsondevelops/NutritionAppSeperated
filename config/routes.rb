@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  post 'authenticate', to: 'authentication#authenticate'
 
   scope 'api/' do
   	resources :foods

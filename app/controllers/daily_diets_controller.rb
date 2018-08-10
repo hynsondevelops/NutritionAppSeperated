@@ -10,6 +10,8 @@ class DailyDietsController < ApplicationController
 
   # GET /daily_diets/1
   def show
+    puts("HEY")
+    puts(current_admin_user)
     dateDesired = params[:date]
     #check user
     #check date increment
